@@ -1,13 +1,35 @@
 const Product = require('../models/products');
-const ErrorHandler = require('../utils/errorHandler');
+
 const catchAsyncErrors = require('../middleware/catchAsyncErrors');
+
+const { defineKeySearch, filterKeyword, pagination } = require('../utils/searchUtils')
 const getProducts = catchAsyncErrors(async (req, res, next) => {
-    const products = await Product.find();
-    res.status(200).json({
-        isSuccess: true,
-        count: products.length,
-        products
-    })
+
+    const perPage = 4;
+    const productCount = await Product.countDocuments();
+    const { keyword, page } = req.query;
+    const { currentPage, skip } = pagination(req.query, perPage);
+
+    try {
+        //let name = defineKeySearch(keyword)
+        let filterQueryStr = filterKeyword(req.query);
+
+        let products = await Product.find({ ...filterQueryStr }).limit(perPage).skip(skip);
+        //console.log("here", products)
+        res.status(200).json({
+            isSuccess: true,
+            count: products.length,
+            productCount: productCount,
+            products
+        })
+    } catch (err) {
+        console.log(err)
+        res.status(500).json({
+            isSuccess: false,
+            message: `${err.message} -- ${err._message}`
+        })
+    }
+
 })
 
 //get single product
@@ -15,24 +37,31 @@ const getSingleProduct = catchAsyncErrors(async (req, res, next) => {
 
     const { id } = req.params;
     try {
-
         const product = await Product.findById(id);
-
         if (!product) {
-            return next(new ErrorHandler('Product has not found...', 404))
-
+            res.status(404).json({
+                isSuccess: false,
+                message: "Product has not found..."
+            })
+        } else {
+            res.status(200).json({
+                isSuccess: true,
+                product
+            })
         }
-        res.status(200).json({
-            isSuccess: true,
-            product
-        })
     } catch (err) {
-        console.log(err.message);
+        console.log(err);
         res.status(500).json({
             isSuccess: false,
-            message: `${err.message} -- Invalid _id`
+            message: `${err.message} -- message:${err._message} -- Invalid property`
         })
     }
+
+
+
+
+
+
 
 
 })
@@ -78,6 +107,10 @@ const updateProduct = catchAsyncErrors(async (req, res, next) => {
         })
     } catch (err) {
         console.log(err);
+        res.status(500).json({
+            isSuccess: false,
+            message: err.message
+        })
     }
 })
 
@@ -87,7 +120,10 @@ const deleteProduct = catchAsyncErrors(async (req, res, next) => {
     try {
         const product = await Product.findById(id);
         if (!product) {
-            return next(new ErrorHandler('Product has not found...', 404))
+            res.status(404).json({
+                isSuccess: false,
+                message: 'Product has not found...'
+            })
         }
         await Product.deleteOne();
         res.status(200).json({
