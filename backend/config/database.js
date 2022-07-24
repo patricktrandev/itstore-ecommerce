@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
-
+const dotenv = require('dotenv')
+dotenv.config({ path: 'backend/config/config.env' })
 
 const connectDatabase = () => {
-    mongoose.connect(`mongodb+srv://root:mypassword@project-nodejs.3l3kq.mongodb.net/shopit?retryWrites=true&w=majority`, {
+    mongoose.connect(`${process.env.DB_LOCAL_URI}`, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
         useUnifiedTopology: true
