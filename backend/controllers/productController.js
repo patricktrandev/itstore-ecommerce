@@ -69,7 +69,7 @@ const getSingleProduct = catchAsyncErrors(async (req, res, next) => {
 
 const addNewProduct = catchAsyncErrors(async (req, res, next) => {
     try {
-
+        req.body.user = req.user.id;
         const product = await Product.create(req.body);
 
         res.status(201).json({

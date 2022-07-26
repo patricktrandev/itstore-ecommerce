@@ -1,11 +1,11 @@
 const express = require('express');
 const app = express();
 
-
+const cookieParser = require('cookie-parser')
 app.use(express.json())
-
+app.use(cookieParser())
 const products = require('./routes/products')
-
+const auth = require('./routes/user')
 app.use(function (err, req, res, next) {
     // No routes handled the request and no system error, that means 404 issue.
     // Forward to next middleware to handle it.
@@ -32,5 +32,5 @@ app.use(function (err, req, res, next) {
 
 // });
 app.use('/api/v1', products)
-
+app.use('/api/v1', auth)
 module.exports = app
