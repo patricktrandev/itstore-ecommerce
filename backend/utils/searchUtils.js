@@ -11,6 +11,21 @@ const defineKeySearch = (keyword) => {
 
     return name;
 }
+
+const defineEmailSearch = (email) => {
+    let emailSearch = {};
+    if (email) {
+        email.trim().replace("@gmail.com", '');
+        emailSearch = {
+            email: {
+                $regex: email,
+                $options: 'i'
+            }
+        }
+    }
+
+    return emailSearch;
+}
 const filterKeyword = (queryStr) => {
     const queryCopy = { ...queryStr }
     let keySearch = defineKeySearch(queryCopy.keyword);
@@ -41,5 +56,6 @@ const pagination = (pageQuery, perPage) => {
 module.exports = {
     defineKeySearch,
     filterKeyword,
-    pagination
+    pagination,
+    defineEmailSearch
 }

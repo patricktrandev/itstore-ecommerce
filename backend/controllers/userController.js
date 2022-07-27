@@ -2,7 +2,7 @@ const User = require('../models/user');
 const crypto = require('crypto')
 const catchAsyncErrors = require('../middleware/catchAsyncErrors');
 
-const { defineKeySearch, filterKeyword, pagination } = require('../utils/searchUtils')
+const { defineKeySearch, filterKeyword, pagination, defineEmailSearch } = require('../utils/searchUtils')
 const sendToken = require('../utils/jwtToken')
 const sendEmail = require('../utils/sendEmail')
 const { handleDulplicate } = require('../middleware/handleErrors')
@@ -41,7 +41,193 @@ const register = catchAsyncErrors(async (req, res, next) => {
 
 
 })
-//get currently logged in user detail  api/v1/me
+//get currently logged in user detail  api/v1/user/me
+const getUserProfile = catchAsyncErrors(async (req, res, next) => {
+    const user = await User.findById(req.user.id);
+
+    res.status(200).json({
+        success: true,
+        user
+    })
+})
+//update currently logged in user => api/v1/user/me/password/update/
+const updateUserPassword = catchAsyncErrors(async (req, res, next) => {
+    try {
+        const user = await User.findById(req.user.id).select('+password');
+
+        // Check previous user password
+        const isMatched = await user.comparePassword(req.body.oldPassword)
+        if (!isMatched) {
+
+            return next(res.status(400).json({
+                isSuccess: false,
+                error: 'Old password is incorrect'
+            }));
+        }
+
+        user.password = req.body.password;
+        await user.save();
+
+        sendToken(user, 200, res)
+    } catch (err) {
+        console.log(err);
+
+        res.status(500).json({
+            isSuccess: false,
+            message: err.message,
+            code: err.code || 500
+        })
+    }
+
+})
+//update user profile api/v1/user/me/update
+
+const updateUserProfile = catchAsyncErrors(async (req, res, next) => {
+    try {
+        const newUserData = {
+            name: req.body.name,
+            email: req.body.email
+        }
+
+        // Update avatar
+        // if (req.body.avatar !== '') {
+        //     const user = await User.findById(req.user.id)
+
+        //     const image_id = user.avatar.public_id;
+        //     const res = await cloudinary.v2.uploader.destroy(image_id);
+
+        //     const result = await cloudinary.v2.uploader.upload(req.body.avatar, {
+        //         folder: 'avatars',
+        //         width: 150,
+        //         crop: "scale"
+        //     })
+
+        //     newUserData.avatar = {
+        //         public_id: result.public_id,
+        //         url: result.secure_url
+        //     }
+        // }
+
+        const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
+            new: true,
+            runValidators: true,
+            useFindAndModify: false
+        })
+
+        res.status(200).json({
+            success: true
+        })
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            isSuccess: false,
+            message: err.message,
+            code: err.code || 500
+        })
+    }
+
+})
+// get all users => /api/v1/admin/users
+
+const getAllUsers = catchAsyncErrors(async (req, res, next) => {
+    const { email } = req.query;
+    const perPage = 3;
+    const userCount = await User.countDocuments();
+    const emailKeySearch = defineEmailSearch(email);
+    const { currentPage, skip } = pagination(req.query, perPage);
+    try {
+        const users = await User.find({ ...emailKeySearch }).limit(perPage).skip(skip);
+        res.status(200).json({
+            success: true,
+            userCount: userCount,
+            users
+        })
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            isSuccess: false,
+            message: err.message,
+            code: err.code || 500
+        })
+    }
+})
+
+const getUserDetails = catchAsyncErrors(async (req, res, next) => {
+    const user = await User.findById(req.params.id);
+
+    if (!user) {
+
+        return next(res.status(400).json({
+            isSuccess: false,
+            error: `User does not found with id: ${req.params.id}`
+        }))
+    }
+
+    res.status(200).json({
+        success: true,
+        user
+    })
+})
+//update user (admin)  api/v1/admin/users/:id
+const updateUser = catchAsyncErrors(async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const newUserData = {
+            name: req.body.name,
+            email: req.body.email,
+            role: req.body.role
+        }
+
+        const user = await User.findByIdAndUpdate(id, newUserData, {
+            new: true,
+            runValidators: true,
+            useFindAndModify: false
+        })
+
+        res.status(200).json({
+            success: true,
+            user
+        })
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            isSuccess: false,
+            message: err.message,
+            code: err.code || 500
+        })
+    }
+})
+//deleteUser
+const deleteUserByAdmin = catchAsyncErrors(async (req, res, next) => {
+    try {
+        const user = await User.findById(req.params.id);
+
+        if (!user) {
+            return next(res.status(400).json({
+                isSuccess: false,
+                error: `User does not found with id: ${req.params.id}`
+            }))
+        }
+
+        // Remove avatar from cloudinary
+        // const image_id = user.avatar.public_id;
+        // await cloudinary.v2.uploader.destroy(image_id);
+
+        await user.remove();
+
+        res.status(200).json({
+            success: true,
+        })
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            isSuccess: false,
+            message: err.message,
+            code: err.code || 500
+        })
+    }
+
+})
 
 
 
@@ -52,30 +238,30 @@ const loginUser = catchAsyncErrors(async (req, res, next) => {
         const user = await User.findOne({ email }).select('+password')
         const isPasswordMatched = await user.comparePassword(password);
         if (!email || !password) {
-            return res.status(400).json({
+            return next(res.status(400).json({
                 isSuccess: false,
                 error: "Please enter email and password"
-            })
+            }))
         }
         //find user in db
         // Finding user in database
 
 
         if (!user) {
-            return res.status(401).json({
+            return next(res.status(401).json({
                 isSuccess: false,
                 error: "Invalid Email or Password"
-            })
+            }))
         }
 
         // Checks if password is correct or not
 
 
         if (!isPasswordMatched) {
-            return res.status(401).json({
+            return next(res.status(401).json({
                 isSuccess: false,
                 error: "Invalid Email or Password"
-            })
+            }))
 
         }
         // const token = user.getJwtToken();
@@ -274,5 +460,12 @@ module.exports = {
     loginUser,
     logoutUser,
     forgotPassword,
-    resetPassword
+    resetPassword,
+    getUserProfile,
+    updateUserPassword,
+    updateUserProfile,
+    getAllUsers,
+    getUserDetails,
+    updateUser,
+    deleteUserByAdmin
 }
