@@ -34,6 +34,8 @@ const authorizeRoles = (...roles) => {
         next()
     }
 }
+
+
 module.exports = {
     isAuthenticatedUser,
     authorizeRoles
