@@ -5,23 +5,26 @@ const catchAsyncErrors = require('../middleware/catchAsyncErrors');
 const { defineKeySearch, filterKeyword, pagination } = require('../utils/searchUtils')
 const getProducts = catchAsyncErrors(async (req, res, next) => {
 
-    const perPage = 4;
+    const perPage = 8;
     const productCount = await Product.countDocuments();
     const { keyword, page } = req.query;
     const { currentPage, skip } = pagination(req.query, perPage);
 
     try {
-        //let name = defineKeySearch(keyword)
+        let name = defineKeySearch(keyword)
         let filterQueryStr = filterKeyword(req.query);
 
         let products = await Product.find({ ...filterQueryStr }).limit(perPage).skip(skip);
         //console.log("here", products)
-        res.status(200).json({
-            isSuccess: true,
-            count: products.length,
-            productCount: productCount,
-            products
-        })
+        setTimeout(() => {
+            res.status(200).json({
+                isSuccess: true,
+                productCount: productCount,
+                products
+            })
+        }, 3000)
+
+
     } catch (err) {
         console.log(err)
         res.status(500).json({

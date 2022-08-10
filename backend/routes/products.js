@@ -10,7 +10,7 @@ const { getProducts, addNewProduct, getSingleProduct, updateProduct, deleteProdu
 router.route('/products').get(getProducts)
 router.route('/products/:id').get(getSingleProduct)
 
-router.route('/admin/products/new').post(isAuthenticatedUser, authorizeRoles('admin'), addNewProduct)
+router.route('/admin/products/new').post(isAuthenticatedUser, addNewProduct)
 router.route('/admin/products/:id').put(isAuthenticatedUser, authorizeRoles('admin'), updateProduct)
 router.route('/admin/products/:id').delete(isAuthenticatedUser, authorizeRoles('admin'), deleteProduct)
 

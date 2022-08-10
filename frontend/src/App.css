@@ -115,6 +115,11 @@ nav {
   font-size: 1.2rem;
   color: #fdcc0d;
 }
+#review--btn{
+    background-color: #fa9c23;
+    color:white;
+    
+}
 
 #no_of_reviews {
   font-size: 0.85rem;
@@ -175,7 +180,25 @@ footer {
   border: none;
   padding: 0.5rem 2rem;
 }
+.carousel-control-prev span.visually-hidden, .carousel-control-next span.visually-hidden{
+  display: none;
+}
+.carousel .carousel-indicators button{
+  width: 0.2rem !important;
+  height: 0.7rem !important;
+  border-radius: 50%;
+  border: none;
+}
+.carousel .carousel-indicators button:focus{
+  outline: none;
+}
+.carousel-indicators button:not(:first-child) {
+  margin-left: 0.5rem;
+}
 
+.carousel-indicators .active {
+  background-color: #fa9c23;
+}
 #product_seller {
   color: grey;
   font-size: 0.9rem;

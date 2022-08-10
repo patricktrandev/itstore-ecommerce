@@ -15,27 +15,46 @@
 <body>
 
 
-    <div class="col-sm-12 col-md-5 col-lg-3 my-3">
-        <div class="card p-3 rounded">
-            <img src="https://cdn.vox-cdn.com/thumbor/K95jc_kE9us-hZnc9KTarx4dpqw=/0x0:1920x1080/1200x1200/filters:focal(988x539:989x540)/cdn.vox-cdn.com/uploads/chorus_asset/file/23346247/2021_LG_Gram_17_White_Press_Image.jpg"
-                alt="">
-            <div class="card-body d-flex flex-column">
-                <h5 class="card-title">
-                    <a href="http://">AmazonBasics High Speed HDMI Cable, 6 Feet</a>
-                </h5>
-                <div class="ratings mt-auto">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <span id="no_of_reviews">(5 reviews)</span>
-                </div>
-                <p class="card-text">$75.56</p>
-                <a href="#" id="view_btn" class="btn btn-lock">View Details</a>
-            </div>
+    <div class="row d-flex justify-content-around">
 
+        <div class="col-12 col-lg-5 img-fluid">
+            <img src="https://cdn.vox-cdn.com/thumbor/K95jc_kE9us-hZnc9KTarx4dpqw=/0x0:1920x1080/1200x1200/filters:focal(988x539:989x540)/cdn.vox-cdn.com/uploads/chorus_asset/file/23346247/2021_LG_Gram_17_White_Press_Image.jpg"
+                alt="" height="500" width="500">
         </div>
+        <div class="col-12 col-lg-5 mt-5">
+            <h3>Kauffman Orchards Homegrown McIntosh Apples</h3>
+            <p id="product_id">Product #jshfdjkshfkjdsh</p>
+            <hr />
+            <div className='rating-outer'>
+                <div className='rating-inner'></div>
+
+            </div>
+            <span id="no_of_reviews">(5 reviews)</span>
+            <hr />
+            <p id="product_price">$ 108.00</p>
+            <div class="stockCounter d-inline">
+                <span class="btn btn-danger minus">-</span>
+                <input type="number" class="form-control count d-inline" value="1" readonly>
+                <span class="btn btn-primary plus">+</span>
+            </div>
+            <button id="cart_btn" type="button" class="btn btn-primary d-inline ml-4"><i class="fa fa-cart-plus"></i>
+                Add to Cart </button>
+            <hr />
+            <p>Status <span id="stock_status">In Stock</span></p>
+            <hr />
+            <h4 class="mt-2">Description :</h4>
+            <p>Compatible with iPad Air (4th and 5th generation - 2020, 2022) - A2316, A2324, A2325, A2072</p>
+            <p>Detachable keyboard and adjustable kickstand: Remove the keyboard when you're done typing for more
+                flexibility and enjoy 50 degrees of adjustable viewing angles</p>
+            <p>SMART CONNECTOR technology: Enjoy instant power and pairing with Combo Touch keyboard case and never
+                worry about charging as power is sourced directly from your iPad Air</p>
+            <hr />
+            <p id="product_seller mb-3">Sold by: <strong>Amazon</strong> </p>
+            <button id="reviewt_btn" type="button" class="btn btn-primary mt-4" data-toggle="modal"
+                data-target="#ratingModal">Submit your review</button>
+            <div class="row mt-2 mb-5"></div>
+        </div>
+
 
     </div>
     <!-- Optional JavaScript -->
