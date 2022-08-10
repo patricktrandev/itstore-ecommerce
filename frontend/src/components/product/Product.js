@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-export const Product = ({ item }) => {
+export const Product = ({ item, col }) => {
     return (
-        <div className="col-sm-12 col-md-5 col-lg-3 my-3">
+        <div className={`col-sm-12 col-md-5 col-lg-${col} my-3`}>
             <div className="card p-3 rounded">
                 <img style={{ maxHeight: '140px' }} src={item.images[0].url} alt='' className='img-fluid' />
                 <div className="card-body d-flex flex-column">

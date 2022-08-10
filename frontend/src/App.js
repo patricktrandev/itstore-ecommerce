@@ -25,6 +25,7 @@ function App() {
           <div className='container' style={{ minHeight: '74vh' }}>
 
             <Route exact path='/' component={Home} />
+            <Route path='/search/:keyword' component={Home} />
             <Route exact path='/products/:id' component={ProductDetails} />
 
 

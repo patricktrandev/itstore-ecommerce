@@ -28,10 +28,10 @@ export const ProductDetails = ({ match }) => {
                 <MetaData title={product.name} />
                 <div className="row d-flex justify-content-around">
 
-                    <div className="col-12 col-lg-5 img-fluid px-2" id='product_image'>
+                    <div className="col-12 col-lg-5 img-fluid px-2 " id='product_image'>
                         <Carousel pause='hover'>
                             {product.images && product.images.map((img, index) => (<Carousel.Item key={img.public_id}>
-                                <img className='d-block w-100 img-fluid' src={img.url} alt={product.title} />
+                                <img style={{ maxHeight: '400px', maxWidth: '400px' }} className='d-block w-100 img-fluid m-auto' src={img.url} alt={product.title} />
                             </Carousel.Item>)
                             )}
                         </Carousel>

@@ -6,7 +6,7 @@ const { defineKeySearch, filterKeyword, pagination } = require('../utils/searchU
 const getProducts = catchAsyncErrors(async (req, res, next) => {
 
     const perPage = 8;
-    const productCount = await Product.countDocuments();
+    //const productCount = await Product.countDocuments();
     const { keyword, page } = req.query;
     const { currentPage, skip } = pagination(req.query, perPage);
 
@@ -15,11 +15,13 @@ const getProducts = catchAsyncErrors(async (req, res, next) => {
         let filterQueryStr = filterKeyword(req.query);
 
         let products = await Product.find({ ...filterQueryStr }).limit(perPage).skip(skip);
+        const productCount = await Product.find({ ...filterQueryStr }).countDocuments();
         //console.log("here", products)
         setTimeout(() => {
             res.status(200).json({
                 isSuccess: true,
                 productCount: productCount,
+                perPage: perPage,
                 products
             })
         }, 3000)

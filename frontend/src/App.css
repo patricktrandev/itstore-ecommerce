@@ -188,7 +188,9 @@ footer {
   height: 0.7rem !important;
   border-radius: 50%;
   border: none;
+  margin: 7px 0;
 }
+
 .carousel .carousel-indicators button:focus{
   outline: none;
 }
@@ -198,6 +200,13 @@ footer {
 
 .carousel-indicators .active {
   background-color: #fa9c23;
+}
+.home-carousel .carousel .carousel-indicators button{
+  width: 40px !important;
+  height: 3px !important;
+  border-radius: 6px;
+  border: none;
+  margin: 7px 5px;
 }
 #product_seller {
   color: grey;
