@@ -169,8 +169,12 @@
 
     <div class="row wrapper">
         <div class="col-10 col-lg-5">
-            <form class="shadow-lg">
-                <h1 class="mb-3">Login</h1>
+            <form class="shadow-lg" encType="'multipart/form-data">
+                <h1 class="mb-3">Register</h1>
+                <div class="form-group">
+                    <label for="name_field">Name</label>
+                    <input type="text" class="form-control" id="name_field" value="">
+                </div>
                 <div class="form-group">
                     <label for="email_field">Email</label>
                     <input type="text" class="form-control" id="email_field" value="">
@@ -179,9 +183,77 @@
                     <label for="password_field">Password</label>
                     <input type="password" class="form-control" id="password_field" value="">
                 </div>
-                <a href="#" class="float-right mb-4">Forgot Password?</a>
-                <button type="submit" id="login_button" class="btn btn-block py-3">LOGIN</button>
-                <a href="#" class="float-right mt-3">Sign-in Account</a>
+                <div class="form-group">
+                    <label for="avatar_upload">Avatar</label>
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <figure class="avatar mr-3 item-rtl">
+                                <img src="" class="rounded-circle" alt="image">
+                            </figure>
+                            <div class="custom-file">
+                                <input type="file" name="avatar" id="customFile" class="custom-file-input">
+                                <label for="customFile" class="custom-file-label">Choose Avatar</label>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" id="register_button" class="btn btn-block py-3">REGISTER</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="mt-5 ml-5">My Profile</div>
+        <div class="row justify-content-around mt-5 user-info">
+            <div class="col-12 col-md-3">
+                <figure class="avatar avatar-profile">
+                    <img src="" class="rounded-circle img-fluid" alt="">
+                </figure>
+                <a href="#" id="edit_profile" class="btn btn-primary btn-block my-5">Edit Profile</a>
+            </div>
+            <div class="col-12 col-md-5">
+                <h4>Full Name</h4>
+                <p>Patrick Tran</p>
+                <h4>Email Address</h4>
+                <p>patricktran123@gmail.com</p>
+                <a href="#" class="btn btn-danger btn-block my-5">My Orders</a>
+                <a href="#" class="btn btn-primary btn-block my-5">Change Password</a>
+            </div>
+        </div>
+
+    </div>
+    <!-- update profile -->
+    <div class="row wrapper">
+        <div class="col-10 col-lg-5">
+            <form class="shadow-lg" encType="'multipart/form-data">
+                <h1 class="mb-3">Update Profile</h1>
+                <div class="form-group">
+                    <label for="name_field">Name</label>
+                    <input type="text" class="form-control" id="name_field" value="">
+                </div>
+                <div class="form-group">
+                    <label for="email_field">Email</label>
+                    <input type="text" class="form-control" id="email_field" value="">
+                </div>
+
+                <div class="form-group">
+                    <label for="avatar_upload">Avatar</label>
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <figure class="avatar mr-3 item-rtl">
+                                <img src="" class="rounded-circle" alt="image">
+                            </figure>
+
+                        </div>
+                        <div class="custom-file">
+                            <input type="file" name="avatar" id="customFile" class="custom-file-input">
+                            <label for="customFile" class="custom-file-label">Choose Avatar</label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn update-btn btn-block py-3">Update</button>
+                </div>
+
             </form>
         </div>
     </div>

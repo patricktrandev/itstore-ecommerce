@@ -11,7 +11,11 @@ import {
     load_user_success,
     load_user_fail,
     logout_success,
-    logout_fail
+    logout_fail,
+    update_profile_request,
+    update_profile_success,
+    update_profile_fail,
+    update_profile_reset
 } from '../constants/userConstant'
 
 export const loginAction = (email, password) => async (dispatch) => {
@@ -80,6 +84,31 @@ export const loadUserAction = () => async (dispatch) => {
 
     }
 }
+export const updateUserProfileAction = (userData) => async (dispatch) => {
+    try {
+        dispatch({
+            type: update_profile_request,
+        })
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }
+        const { data } = await axios.put('/api/v1/user/me/update', userData, config)
+        dispatch({
+            type: update_profile_success,
+            payload: data.success
+        })
+    } catch (err) {
+        dispatch({
+            type: update_profile_fail,
+            payload: err.response.data.message
+        })
+        //console.log(err.response.data)
+
+    }
+}
+
 export const logoutUserAction = () => async (dispatch) => {
     try {
 

@@ -17,7 +17,7 @@ export const Profile = () => {
                     <div className="row justify-content-around mt-5 user-info">
                         <div className="col-12 col-md-3">
                             <figure className="avatar avatar-profile">
-                                <img src={user.avatar.url} className="rounded-circle img-fluid" style={{ border: '5px solid #ff4000', boxShadow: '0 5px 0 #ffc6b3' }} alt={user.name} />
+                                <img src={user.avatar.url} className="rounded-circle img-fluid" style={{ border: '5px solid #ff4000', boxShadow: 'rgb(200 200 200) 0px 2px 8px 6px' }} alt={user.name} />
                             </figure>
                             <Link to="/me/update" id="edit_profile" className="btn btn-primary btn-block my-5">Edit Profile</Link>
                         </div>

@@ -20,6 +20,7 @@ import { loadUserAction } from './redux/actions/usersAction'
 import { store } from './redux/storeReducer'
 import { Profile } from './components/users/Profile';
 import { ProtectedRoute } from './components/route/ProtectedRoute';
+import { UpdateProfile } from './components/users/UpdateProfile';
 function App() {
 
   useEffect(() => {
@@ -40,6 +41,7 @@ function App() {
             <Route exact path='/register' component={Register} />
 
             <ProtectedRoute exact path='/me' component={Profile} />
+            <ProtectedRoute exact path='/me/update' component={UpdateProfile} />
           </div>
 
 
