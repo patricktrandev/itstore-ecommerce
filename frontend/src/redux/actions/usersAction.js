@@ -9,7 +9,9 @@ import {
     register_fail,
     load_user_request,
     load_user_success,
-    load_user_fail
+    load_user_fail,
+    logout_success,
+    logout_fail
 } from '../constants/userConstant'
 
 export const loginAction = (email, password) => async (dispatch) => {
@@ -73,6 +75,23 @@ export const loadUserAction = () => async (dispatch) => {
     } catch (err) {
         dispatch({
             type: load_user_fail,
+            payload: err.response.data.message
+        })
+
+    }
+}
+export const logoutUserAction = () => async (dispatch) => {
+    try {
+
+
+        await axios.get('/api/v1/logout')
+        dispatch({
+            type: logout_success,
+
+        })
+    } catch (err) {
+        dispatch({
+            type: logout_fail,
             payload: err.response.data.message
         })
 

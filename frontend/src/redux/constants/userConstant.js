@@ -12,4 +12,7 @@ export const load_user_success = 'LOAD_USER_SUCCESS'
 export const load_user_fail = 'LOAD_USER_FAIL'
 
 
+export const logout_success = 'LOGOUT_SUCCESS'
+export const logout_fail = 'LOGOUT_FAIL'
+
 export const clear_errors = 'CLEAR_ERRORS'

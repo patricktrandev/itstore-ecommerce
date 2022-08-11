@@ -3,11 +3,17 @@ import { Route, Link } from 'react-router-dom'
 import { Search } from './Search'
 import { useDispatch, useSelector } from 'react-redux'
 import { useAlert } from 'react-alert'
+import { logoutUserAction } from '../../redux/actions/usersAction'
 const Header = () => {
     const alert = useAlert();
     const dispatch = useDispatch()
 
     const { loading, user } = useSelector(state => state.userReducer)
+
+    const logoutHandler = () => {
+        dispatch(logoutUserAction())
+        alert.success('Logged Out Successfully !')
+    }
     return (
         <Fragment>
             <nav className="navbar row">
@@ -32,23 +38,24 @@ const Header = () => {
                     </Link>
                     {user ? (
                         <div className='ml-4 dropdown d-inline'>
-                            <Link to='!#' className='btn dropdown-toggle text-white' type='button' id='dropDownMenuButton' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+                            <Link to='#!' className='btn dropdown-toggle text-white' type='button' id='dropDownMenuButton' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
                                 <figure className='avatar avatar-nav'>
                                     <img src={user.avatar && user.avatar.url} alt={user && user.name} className='rounded-circle' />
 
                                 </figure>
                                 <span className='small ml-2'>{user && user.name} </span>
-                                <div className='dropdown-menu' aria-labelledby='#dropDownMenuButton'>
-                                    {user && user.role !== 'admin' ? (
-                                        <Link className='dropdown-item ' to='/orders/me'>Orders</Link>
-                                    ) : (
-                                        <Link className='dropdown-item ' to='/dashboard'>Dashboard</Link>
-                                    )}
-                                    <Link className='dropdown-item ' to='/me'>Profile</Link>
-                                    <Link className='dropdown-item text-danger' to='/'>Logout</Link>
 
-                                </div>
                             </Link>
+                            <div className='dropdown-menu' aria-labelledby='#dropDownMenuButton'>
+                                {user && user.role !== 'admin' ? (
+                                    <Link className='dropdown-item ' to='/orders/me'>Orders</Link>
+                                ) : (
+                                    <Link className='dropdown-item ' to='/dashboard'>Dashboard</Link>
+                                )}
+                                <Link className='dropdown-item ' to='/me'>Profile</Link>
+                                <Link className='dropdown-item text-danger' to='/' onClick={() => logoutHandler()}>Logout</Link>
+
+                            </div>
                         </div>
                     ) : !loading && <Link to='/login' id='login_btn' className='btn ml-3'>Login</Link>}
 
