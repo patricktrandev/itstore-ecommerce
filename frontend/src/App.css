@@ -315,7 +315,32 @@ footer {
   width: 3rem;
   text-align: center;
 }
+.cate-box {
+  border-radius: 7px;
+  box-shadow: 0 0 3px 0 #dee2e6;
+}
 
+.col-border {
+  border-right: 1px solid rgba(0, 0, 0, .05);
+  border-left: 1px solid rgba(0, 0, 0, .05);
+  transition: all .1s ease-in;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.col-border:hover {
+  box-shadow: 2px 1px 3px 0 #888888;
+}
+
+.cate-item {
+  padding: 25px 25px;
+  text-align: center;
+  justify-content: center;
+  border: 1px solid #F0F0F0;
+  background-color: #F0F0F0;
+  border-radius: 50%;
+  margin: 12px 10px;
+}
 .plus,
 .minus {
   padding: 0.1rem 0.5rem;

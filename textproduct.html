@@ -10,12 +10,42 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+    <style>
+        .cate-box {
+            border-radius: 7px;
+            box-shadow: 0 0 3px 0 #dee2e6;
+        }
+
+        .col-border {
+            border-right: 1px solid rgba(0, 0, 0, .05);
+            border-left: 1px solid rgba(0, 0, 0, .05);
+            transition: all .1s ease-in;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        .col-border:hover {
+            box-shadow: 2px 1px 3px 0 #888888;
+        }
+
+        .cate-item {
+            padding: 25px 25px;
+            text-align: center;
+            justify-content: center;
+            border: 1px solid #F0F0F0;
+            background-color: #F0F0F0;
+            border-radius: 50%;
+            margin: 12px 10px;
+        }
+    </style>
 </head>
 
 <body>
 
 
-    <div class="row d-flex justify-content-around">
+    <!-- <div class="row d-flex justify-content-around">
 
         <div class="col-12 col-lg-5 img-fluid">
             <img src="https://cdn.vox-cdn.com/thumbor/K95jc_kE9us-hZnc9KTarx4dpqw=/0x0:1920x1080/1200x1200/filters:focal(988x539:989x540)/cdn.vox-cdn.com/uploads/chorus_asset/file/23346247/2021_LG_Gram_17_White_Press_Image.jpg"
@@ -52,11 +82,97 @@
             <p id="product_seller mb-3">Sold by: <strong>Amazon</strong> </p>
             <button id="reviewt_btn" type="button" class="btn btn-primary mt-4" data-toggle="modal"
                 data-target="#ratingModal">Submit your review</button>
-            <div class="row mt-2 mb-5"></div>
+            <div class="row mt-2 mb-5">
+                <div class="rating w-50">
+                    <div class="modal fade" id="ratingModal" tabindex="-1" role="dialog" aria-labelledby="ratingModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="ratingModal">Submit Review</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                              <ul class="stars">
+                                <li class="star"><i class="fa fa-star"></i></li>
+                                <li class="star"><i class="fa fa-star"></i></li>
+                                <li class="star"><i class="fa fa-star"></i></li>
+                                <li class="star"><i class="fa fa-star"></i></li>
+                                <li class="star"><i class="fa fa-star"></i></li>
+                              </ul>
+                              <textarea name="review" id="review" class="form-control mt-3" cols="20" rows="10"></textarea>
+                            </div>
+                            <div class="modal-footer">
+                                <button className="btn my-3 float-right review-btn px-4 text-white" data-dismiss="modal" aria-label="Close">Submit</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                </div>
+            </div>
         </div>
 
 
+    </div> -->
+
+    <div class="container">
+        <div class="m-5 cate-box">
+            <div class="row bg-white">
+                <div class="col-2 col-border">
+                    <div class="cate-item">
+                        <a href="#">
+                            <img class="img-fluid"
+                                src="https://cdn-www.mediatek.com/page/Mobile-2_2021-10-20-155734_vspa.png" alt="">
+                        </a>
+
+                    </div>
+                </div>
+                <div class="col-2 col-border">
+                    <div class="cate-item">
+                        <img class="img-fluid"
+                            src="https://cdn-www.mediatek.com/page/Mobile-2_2021-10-20-155734_vspa.png" alt="">
+                    </div>
+                </div>
+                <div class="col-2 col-border">
+                    <div class="cate-item">
+                        <img class="img-fluid"
+                            src="https://cdn-www.mediatek.com/page/Mobile-2_2021-10-20-155734_vspa.png" alt="">
+                    </div>
+                </div>
+                <div class="col-2 col-border">
+                    <div class="cate-item">
+                        <img class="img-fluid"
+                            src="https://cdn-www.mediatek.com/page/Mobile-2_2021-10-20-155734_vspa.png" alt="">
+                    </div>
+                </div>
+                <div class="col-2 col-border">
+                    <div class="cate-item">
+                        <img class="img-fluid"
+                            src="https://cdn-www.mediatek.com/page/Mobile-2_2021-10-20-155734_vspa.png" alt="">
+                    </div>
+                </div>
+                <div class="col-2 col-border">
+                    <div class="cate-item">
+                        <img class="img-fluid"
+                            src="https://cdn-www.mediatek.com/page/Mobile-2_2021-10-20-155734_vspa.png" alt="">
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+
+
     </div>
+
+
+
+
+
+
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

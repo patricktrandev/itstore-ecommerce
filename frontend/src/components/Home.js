@@ -1,14 +1,17 @@
 import React, { useState, Fragment, useEffect } from 'react'
-import { MetaData } from './layout/MetaData'
+import Pagination from "react-js-pagination";
 import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
+
 import { getProductsAction } from '../redux/actions/productsAction'
 import { Product } from '../components/product/Product'
 import { Loader } from './layout/Loader'
+import { MetaData } from './layout/MetaData'
 import { HomeCarousel } from './layout/HomeCarousel'
-import Pagination from "react-js-pagination";
+import { CategoryBox } from './layout/CategoryBox';
+
 
 // const createSliderWithTooltips = Slider.createSliderWithTooltip;
 // const Range = createSliderWithToolTips(Slider.Range);
@@ -62,6 +65,7 @@ export const Home = ({ match }) => {
     return (
         <Fragment>
             <HomeCarousel />
+            <CategoryBox />
             {loading ? <Loader /> : <Fragment>
                 <MetaData title={'Best Online Ecommerce Platform'} />
 
