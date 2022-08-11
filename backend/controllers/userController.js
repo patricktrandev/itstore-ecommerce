@@ -1,34 +1,38 @@
 const User = require('../models/user');
 const crypto = require('crypto')
 const catchAsyncErrors = require('../middleware/catchAsyncErrors');
-
+const cloudinary = require('cloudinary')
 const { defineKeySearch, filterKeyword, pagination, defineEmailSearch } = require('../utils/searchUtils')
 const sendToken = require('../utils/jwtToken')
 const sendEmail = require('../utils/sendEmail')
 const { handleDulplicate } = require('../middleware/handleErrors')
 // register user
 const register = catchAsyncErrors(async (req, res, next) => {
-    const { name, email, password } = req.body;
+
     try {
+        const result = await cloudinary.v2.uploader.upload(req.body.avatar, {
+            folder: 'avatar',
+            width: 150,
+            crop: 'scale',
+            public_id: `${Date.now()}`,
+            resource_type: "auto",
+        })
+        console.log(req.body.avatar)
+        const { name, email, password } = req.body;
         const user = await User.create({
             name,
             email,
             password,
             avatar: {
-                public_id: 'd_avatar.png/non_existing_id',
-                url: 'https://res.cloudinary.com/demo/image/upload/d_avatar.png/non_existing_id.png'
+                public_id: result.public_id,
+                url: result.secure_url
             }
         })
         sendToken(user, 200, res)
 
-        // const token = user.getJwtToken();
-        // res.status(201).json({
-        //     success: true,
-        //     user,
-        //     token: token,
-        // })
+
     } catch (err) {
-        console.log(err);
+        console.log(">>>", err);
 
         res.status(500).json({
             isSuccess: false,

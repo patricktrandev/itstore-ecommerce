@@ -1,4 +1,4 @@
-
+import { useEffect } from 'react'
 import './App.css';
 import React, { Fragment } from "react";
 import {
@@ -14,8 +14,15 @@ import Footer from './components/layout/Footer';
 import Header from './components/layout/Header';
 import { PageNotFound } from './components/layout/PageNotFound';
 import { ProductDetails } from './components/product/ProductDetails';
-
+import { Login } from './components/users/Login';
+import { Register } from './components/users/Register';
+import { loadUserAction } from './redux/actions/usersAction'
+import { store } from './redux/storeReducer'
 function App() {
+
+  useEffect(() => {
+    store.dispatch(loadUserAction())
+  }, [])
   return (
     <Fragment>
       <Router>
@@ -27,8 +34,8 @@ function App() {
             <Route exact path='/' component={Home} />
             <Route path='/search/:keyword' component={Home} />
             <Route exact path='/products/:id' component={ProductDetails} />
-
-
+            <Route exact path='/login' component={Login} />
+            <Route exact path='/register' component={Register} />
           </div>
 
 

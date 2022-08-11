@@ -2,11 +2,20 @@ const express = require('express');
 const app = express();
 
 const cookieParser = require('cookie-parser')
+const bodyparser = require('body-parser')
+const fileUpload = require('express-fileupload')
 app.use(express.json())
+app.use(bodyparser.urlencoded({ extended: true }))
 app.use(cookieParser())
+app.use(fileUpload())
 const products = require('./routes/products')
 const auth = require('./routes/user')
 const order = require('./routes/orders')
+
+
+
+
+
 
 app.use(function (err, req, res, next) {
     // No routes handled the request and no system error, that means 404 issue.

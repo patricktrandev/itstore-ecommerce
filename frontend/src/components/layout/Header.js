@@ -1,8 +1,13 @@
 import React, { Fragment } from 'react'
 import { Route, Link } from 'react-router-dom'
 import { Search } from './Search'
-
+import { useDispatch, useSelector } from 'react-redux'
+import { useAlert } from 'react-alert'
 const Header = () => {
+    const alert = useAlert();
+    const dispatch = useDispatch()
+
+    const { loading, user } = useSelector(state => state.userReducer)
     return (
         <Fragment>
             <nav className="navbar row">
@@ -21,9 +26,34 @@ const Header = () => {
 
                 <div className="col-12 col-md-3 mt-4 mt-md-0 text-center">
 
-                    <button id='login_btn' className='btn'>Login</button>
-                    <span id='cart' className='ml-4'><i className="fa fa-shopping-cart"></i> Cart</span>
-                    <span className='ml-1' id='cart_count'>2</span>
+                    <Link to='/cart' style={{ textDecoration: 'none' }} >
+                        <span id='cart' className='ml-4'><i className="fa fa-shopping-cart"></i> Cart</span>
+                        <span className='ml-1' id='cart_count'>2</span>
+                    </Link>
+                    {user ? (
+                        <div className='ml-4 dropdown d-inline'>
+                            <Link to='!#' className='btn dropdown-toggle text-white' type='button' id='dropDownMenuButton' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+                                <figure className='avatar avatar-nav'>
+                                    <img src={user.avatar && user.avatar.url} alt={user && user.name} className='rounded-circle' />
+
+                                </figure>
+                                <span className='small ml-2'>{user && user.name} </span>
+                                <div className='dropdown-menu' aria-labelledby='#dropDownMenuButton'>
+                                    {user && user.role !== 'admin' ? (
+                                        <Link className='dropdown-item ' to='/orders/me'>Orders</Link>
+                                    ) : (
+                                        <Link className='dropdown-item ' to='/dashboard'>Dashboard</Link>
+                                    )}
+                                    <Link className='dropdown-item ' to='/me'>Profile</Link>
+                                    <Link className='dropdown-item text-danger' to='/'>Logout</Link>
+
+                                </div>
+                            </Link>
+                        </div>
+                    ) : !loading && <Link to='/login' id='login_btn' className='btn ml-3'>Login</Link>}
+
+
+
 
 
                 </div>
