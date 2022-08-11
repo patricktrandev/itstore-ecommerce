@@ -47,7 +47,7 @@ export const Login = ({ history }) => {
                                     <label htmlFor="password_field">Password</label>
                                     <input type="password" className="form-control" id="password_field" value={password} onChange={(e) => setPassword(e.target.value)} />
                                 </div>
-                                <Link to="/password/forgot" className="float-right mb-4">Forgot Password?</Link>
+                                <Link to="/forgot-password" className="float-right mb-4">Forgot Password?</Link>
                                 <button type="submit" id="login_button" className="btn btn-block py-3">LOGIN</button>
                                 <Link to="/register" className="float-right m-3">Sign-in Account</Link>
                             </form>

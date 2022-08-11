@@ -18,6 +18,9 @@ import {
     update_password_request,
     update_password_success,
     update_password_fail,
+    forgot_password_request,
+    forgot_password_success,
+    forgot_password_fail
 } from '../constants/userConstant'
 
 export const loginAction = (email, password) => async (dispatch) => {
@@ -110,17 +113,17 @@ export const updateUserProfileAction = (userData) => async (dispatch) => {
 
     }
 }
-export const updatePasswordAction = (userData) => async (dispatch) => {
+export const updatePasswordAction = (passwords) => async (dispatch) => {
     try {
         dispatch({
             type: update_password_request,
         })
         const config = {
             headers: {
-                'Content-Type': 'multipart/form-data'
+                'Content-Type': 'application/json'
             }
         }
-        const { data } = await axios.put('/api/v1/user/me/password/update', userData, config)
+        const { data } = await axios.put('/api/v1/user/me/password/update', passwords, config)
         dispatch({
             type: update_password_success,
             payload: data.success
@@ -134,7 +137,29 @@ export const updatePasswordAction = (userData) => async (dispatch) => {
 
     }
 }
+export const forgotPasswordAction = (email) => async (dispatch) => {
+    try {
+        dispatch({
+            type: forgot_password_request,
+        })
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        const { data } = await axios.post('/api/v1/password/forgot', email, config)
+        dispatch({
+            type: forgot_password_success,
+            payload: data.message
+        })
+    } catch (err) {
+        dispatch({
+            type: forgot_password_fail,
+            payload: err.response.data.message
+        })
 
+    }
+}
 export const logoutUserAction = () => async (dispatch) => {
     try {
 

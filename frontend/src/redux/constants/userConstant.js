@@ -28,6 +28,10 @@ export const update_password_success = 'UPDATE_PASSWORD_SUCCESS'
 export const update_password_reset = 'UPDATE_PASSWORD_RESET'
 export const update_password_fail = 'UPDATE_PASSWORD_FAIL'
 
+export const forgot_password_request = 'FORGOT_PASSWORD_REQUEST'
+export const forgot_password_success = 'FORGOT_PASSWORD_SUCCESS'
+export const forgot_password_fail = 'FORGOT_PASSWORD_FAIL'
+
 
 
 

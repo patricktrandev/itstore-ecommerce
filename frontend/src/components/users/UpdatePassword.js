@@ -14,8 +14,7 @@ export const UpdatePassword = ({ history }) => {
 
     const alert = useAlert();
     const dispatch = useDispatch();
-    console.log(oldPassword)
-    console.log(password)
+
     const { isUpdated, error, loading } = useSelector(state => state.userManagementReducer)
 
     const submitHandler = (e) => {
