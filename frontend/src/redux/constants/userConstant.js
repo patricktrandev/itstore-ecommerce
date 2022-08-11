@@ -25,6 +25,7 @@ export const update_profile_fail = 'UPDATE_PROFILE_FAIL'
 
 export const update_password_request = 'UPDATE_PASSWORD_REQUEST'
 export const update_password_success = 'UPDATE_PASSWORD_SUCCESS'
+export const update_password_reset = 'UPDATE_PASSWORD_RESET'
 export const update_password_fail = 'UPDATE_PASSWORD_FAIL'
 
 

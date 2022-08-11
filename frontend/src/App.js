@@ -21,6 +21,7 @@ import { store } from './redux/storeReducer'
 import { Profile } from './components/users/Profile';
 import { ProtectedRoute } from './components/route/ProtectedRoute';
 import { UpdateProfile } from './components/users/UpdateProfile';
+import { UpdatePassword } from './components/users/UpdatePassword';
 function App() {
 
   useEffect(() => {
@@ -42,6 +43,7 @@ function App() {
 
             <ProtectedRoute exact path='/me' component={Profile} />
             <ProtectedRoute exact path='/me/update' component={UpdateProfile} />
+            <ProtectedRoute exact path='/password/update' component={UpdatePassword} />
           </div>
 
 

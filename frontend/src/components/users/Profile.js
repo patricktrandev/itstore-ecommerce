@@ -30,10 +30,10 @@ export const Profile = () => {
                             <p className='font-italic small'>{String(user.createdAt).substring(0, 10)}</p>
 
                             {user.role !== 'admin' && (
-                                <Link href="/orders/me" className="btn btn-danger btn-block my-5">My Orders</Link>
+                                <Link to="/orders/me" className="btn btn-danger btn-block my-5">My Orders</Link>
                             )}
 
-                            <Link href="/password/update" className="btn btn-primary btn-block my-5">Change Password</Link>
+                            <Link to="/password/update" className="btn btn-primary btn-block my-5">Change Password</Link>
                         </div>
                     </div>
 

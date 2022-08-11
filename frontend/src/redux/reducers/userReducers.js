@@ -14,6 +14,7 @@ import {
     logout_fail,
     update_password_request,
     update_password_success,
+    update_password_reset,
     update_password_fail,
     update_profile_request,
     update_profile_success,
@@ -92,20 +93,25 @@ export const userReducer = (state = { user: {} }, action) => {
 
 export const userManagementReducer = (state = {}, action) => {
     switch (action.type) {
-        case update_profile_request: {
+        case update_profile_request:
+        case update_password_request: {
             return {
                 ...state,
                 loading: true,
             }
+
         }
-        case update_profile_success: {
+
+        case update_profile_success:
+        case update_password_success: {
             return {
                 ...state,
                 loading: false,
                 isUpdated: action.payload
             }
         }
-        case update_profile_reset: {
+        case update_profile_reset:
+        case update_password_reset: {
             return {
                 ...state,
                 isUpdated: false
@@ -113,13 +119,20 @@ export const userManagementReducer = (state = {}, action) => {
 
         }
 
-        case update_profile_fail: {
+        case update_profile_fail:
+        case update_password_fail: {
             return {
                 ...state,
                 loading: false,
                 error: action.payload
             }
 
+        }
+        case clear_errors: {
+            return {
+                ...state,
+                error: null
+            }
         }
 
         default:

@@ -15,7 +15,9 @@ import {
     update_profile_request,
     update_profile_success,
     update_profile_fail,
-    update_profile_reset
+    update_password_request,
+    update_password_success,
+    update_password_fail,
 } from '../constants/userConstant'
 
 export const loginAction = (email, password) => async (dispatch) => {
@@ -102,6 +104,30 @@ export const updateUserProfileAction = (userData) => async (dispatch) => {
     } catch (err) {
         dispatch({
             type: update_profile_fail,
+            payload: err.response.data.message
+        })
+        //console.log(err.response.data)
+
+    }
+}
+export const updatePasswordAction = (userData) => async (dispatch) => {
+    try {
+        dispatch({
+            type: update_password_request,
+        })
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }
+        const { data } = await axios.put('/api/v1/user/me/password/update', userData, config)
+        dispatch({
+            type: update_password_success,
+            payload: data.success
+        })
+    } catch (err) {
+        dispatch({
+            type: update_password_fail,
             payload: err.response.data.message
         })
         //console.log(err.response.data)

@@ -65,7 +65,7 @@ export const UpdateProfile = ({ history }) => {
             <MetaData title={`${user && user.name} | Update Profile - SHOPIT`} />
             <div className="row wrapper">
                 <div className="col-10 col-lg-5">
-                    <form className="shadow-lg" onSubmit={(e) => submitHandler(e)} encType="'multipart/form-data">
+                    <form className="shadow-lg" onSubmit={(e) => submitHandler(e)} encType="multipart/form-data">
                         <h3 className="mb-3 text-center">Update Profile</h3>
                         <div className="form-group">
                             <label htmlFor="name_field">Name</label>

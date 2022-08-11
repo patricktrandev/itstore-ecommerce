@@ -58,9 +58,11 @@ const getUserProfile = catchAsyncErrors(async (req, res, next) => {
 const updateUserPassword = catchAsyncErrors(async (req, res, next) => {
     try {
         const user = await User.findById(req.user.id).select('+password');
-
+        console.log(req.body)
+        console.log(user)
         // Check previous user password
         const isMatched = await user.comparePassword(req.body.oldPassword)
+        console.log("is", isMatched)
         if (!isMatched) {
 
             return next(res.status(400).json({
