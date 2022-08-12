@@ -20,7 +20,10 @@ import {
     update_password_fail,
     forgot_password_request,
     forgot_password_success,
-    forgot_password_fail
+    forgot_password_fail,
+    reset_password_request,
+    reset_password_success,
+    reset_password_fail
 } from '../constants/userConstant'
 
 export const loginAction = (email, password) => async (dispatch) => {
@@ -155,6 +158,30 @@ export const forgotPasswordAction = (email) => async (dispatch) => {
     } catch (err) {
         dispatch({
             type: forgot_password_fail,
+            payload: err.response.data.message
+        })
+
+    }
+}
+export const resetPasswordAction = (token, passwords) => async (dispatch) => {
+    try {
+        dispatch({
+            type: reset_password_request,
+        })
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        const { data } = await axios.put(`/api/v1/password/reset/${token}`, passwords, config)
+        console.log(">>>data", data)
+        dispatch({
+            type: reset_password_success,
+            payload: data.success
+        })
+    } catch (err) {
+        dispatch({
+            type: reset_password_fail,
             payload: err.response.data.message
         })
 

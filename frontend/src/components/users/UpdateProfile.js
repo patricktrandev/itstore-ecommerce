@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { updateUserProfileAction, clearErrors, loadUserAction } from '../../redux/actions/usersAction'
 import { update_profile_reset } from '../../redux/constants/userConstant'
-import { Loader } from '../layout/Loader'
 import { MetaData } from '../layout/MetaData'
 export const UpdateProfile = ({ history }) => {
     const [name, setName] = useState('');

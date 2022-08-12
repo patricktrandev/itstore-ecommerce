@@ -32,8 +32,8 @@ export const forgot_password_request = 'FORGOT_PASSWORD_REQUEST'
 export const forgot_password_success = 'FORGOT_PASSWORD_SUCCESS'
 export const forgot_password_fail = 'FORGOT_PASSWORD_FAIL'
 
-
-
-
+export const reset_password_request = 'RESET_PASSWORD_REQUEST'
+export const reset_password_success = 'RESET_PASSWORD_SUCCESS'
+export const reset_password_fail = 'RESET_PASSWORD_FAIL'
 
 export const clear_errors = 'CLEAR_ERRORS'

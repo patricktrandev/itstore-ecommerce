@@ -308,7 +308,8 @@ const forgotPassword = catchAsyncErrors(async (req, res, next) => {
     await user.save({ validateBeforeSave: false });
 
     // Create reset password url
-    const resetUrl = `${req.protocol}://${req.get('host')}/api/v1/password/reset/${resetToken}`;
+    const resetUrl = `/password/reset/${resetToken}`;
+    //const message = `Your password reset token is as follow:\n\n${resetUrl}\n\nIf you have not requested this email, then ignore it.`
     const message = `
     <html lang="en">
 
@@ -376,7 +377,7 @@ const forgotPassword = catchAsyncErrors(async (req, res, next) => {
             <p class="mail__text__small">If you've lost your password or wish to reset it, use the link below to get
                 started
             </p>
-            <button class="reset__btn"><a href=${resetUrl}>Reset Your Password</a></button>
+            <button class="reset__btn"><a href="http://127.0.0.1:3000${resetUrl}">Reset Your Password</a></button>
             <p class="mail__text__small">If you have not requested this email, then ignore it.</p>
         </div>
     </div>
@@ -420,11 +421,14 @@ const forgotPassword = catchAsyncErrors(async (req, res, next) => {
 const resetPassword = catchAsyncErrors(async (req, res, next) => {
     // Hash URL token
     const resetPasswordToken = crypto.createHash('sha256').update(req.params.token).digest('hex')
+    console.log(resetPasswordToken)
+    console.log(req.params.token)
 
     const user = await User.findOne({
         resetPasswordToken,
         resetPasswordExpire: { $gt: Date.now() }
     })
+    console.log(">>", user)
 
     if (!user) {
         return next(res.status(400).json({

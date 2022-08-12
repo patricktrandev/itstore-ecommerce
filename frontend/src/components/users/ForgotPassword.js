@@ -46,7 +46,7 @@ export const ForgotPassword = () => {
                         </div>
 
 
-                        <button type="submit" id='forgot_password_button' className="btn btn-block py-4" disabled={loading ? true : false} >Send Email</button>
+                        <button type="submit" id='forgot_password_button' className="btn btn-block py-3" disabled={loading ? true : false} >Send Email</button>
                     </form>
                 </div>
             </div>
