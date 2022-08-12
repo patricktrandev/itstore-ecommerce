@@ -3,6 +3,7 @@ import { countries } from 'countries-list'
 import { useDispatch, useSelector } from 'react-redux'
 import { saveShippingInfoAction } from '../../redux/actions/cartActions'
 import { MetaData } from '../layout/MetaData'
+import { CheckoutStep } from './CheckoutStep'
 export const Shipping = ({ history }) => {
     const countriesList = Object.values(countries)
     const dispatch = useDispatch();
@@ -23,12 +24,13 @@ export const Shipping = ({ history }) => {
             phoneNo,
             country
         }))
-        history.push('/confirm')
+        history.push('/order/confirm')
     }
 
     return (
         <Fragment>
             <MetaData title='Shipping Info  | ShopIT' />
+            <CheckoutStep shipping />
             <div className="row wrapper">
                 <div className="col-10 col-lg-5">
                     <form className="shadow-lg" onSubmit={(e) => submitHandler(e)} encType="'multipart/form-data">
@@ -56,7 +58,7 @@ export const Shipping = ({ history }) => {
                                 {countriesList.map(country => (<option key={country.name} value={country.name}>{country.name}</option>))}
                             </select>
                         </div>
-                        <button id="shipping_btn" type="submit" className="btn btn-block py-3">Continue <i className="fa fa-arrow-right" /></button>
+                        <button id="shipping_btn" type="submit" className="btn btn-block py-3" >Continue <i className="fa fa-arrow-right" /></button>
                     </form>
                 </div>
             </div>

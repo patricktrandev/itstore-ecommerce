@@ -26,6 +26,7 @@ import { ForgotPassword } from './components/users/ForgotPassword';
 import { ResetPassword } from './components/users/ResetPassword';
 import { Cart } from './components/cart/Cart';
 import { Shipping } from './components/cart/Shipping';
+import { ConfirmOrder } from './components/cart/ConfirmOrder';
 function App() {
 
   useEffect(() => {
@@ -54,6 +55,7 @@ function App() {
 
               <Route exact path='/cart' component={Cart} />
               <ProtectedRoute exact path='/shipping' component={Shipping} />
+              <ProtectedRoute exact path='/order/confirm' component={ConfirmOrder} />
 
               <Route path='*' component={PageNotFound} />
             </Switch>
