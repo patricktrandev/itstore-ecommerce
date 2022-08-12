@@ -282,6 +282,7 @@ footer {
   padding: 0.3rem 0.5rem;
   font-size: 1.1rem;
   border: none;
+  cursor: pointer;
 }
 
 #card_item_price {
@@ -291,6 +292,7 @@ footer {
 }
 
 #checkout_btn,
+.btn-shopping,
 .review-btn {
   background-color: #fa9c23;
   border-color: #fa9c23;
@@ -348,6 +350,7 @@ footer {
 .plus,
 .minus {
   padding: 0.1rem 0.5rem;
+  cursor: pointer;
 }
 
 .stockCounter input::-webkit-outer-spin-button,
