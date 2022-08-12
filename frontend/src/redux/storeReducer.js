@@ -9,7 +9,8 @@ import { userReducer, userManagementReducer, forgotPasswordReducer } from './red
 import { cartReducer } from './reducers/cartReducer'
 let initialState = {
     cartReducer: {
-        cartItems: localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : []
+        cartItems: localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : [],
+        shippingInfo: localStorage.getItem('shippingInfo') ? JSON.parse(localStorage.getItem('shippingInfo')) : {},
     }
 }
 

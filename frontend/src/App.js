@@ -25,6 +25,7 @@ import { UpdatePassword } from './components/users/UpdatePassword';
 import { ForgotPassword } from './components/users/ForgotPassword';
 import { ResetPassword } from './components/users/ResetPassword';
 import { Cart } from './components/cart/Cart';
+import { Shipping } from './components/cart/Shipping';
 function App() {
 
   useEffect(() => {
@@ -37,19 +38,26 @@ function App() {
           <Header />
 
           <div className='container' style={{ minHeight: '74vh' }}>
+            <Switch>
+              <Route exact path='/' component={Home} />
+              <Route path='/search/:keyword' component={Home} />
+              <Route exact path='/products/:id' component={ProductDetails} />
+              <Route exact path='/login' component={Login} />
+              <Route exact path='/register' component={Register} />
 
-            <Route exact path='/' component={Home} />
-            <Route path='/search/:keyword' component={Home} />
-            <Route exact path='/products/:id' component={ProductDetails} />
-            <Route exact path='/login' component={Login} />
-            <Route exact path='/register' component={Register} />
+              <ProtectedRoute exact path='/me' component={Profile} />
+              <ProtectedRoute exact path='/me/update' component={UpdateProfile} />
+              <ProtectedRoute exact path='/password/update' component={UpdatePassword} />
+              <Route exact path='/forgot-password' component={ForgotPassword} />
+              <Route exact path='/password/reset/:token' component={ResetPassword} />
 
-            <ProtectedRoute exact path='/me' component={Profile} />
-            <ProtectedRoute exact path='/me/update' component={UpdateProfile} />
-            <ProtectedRoute exact path='/password/update' component={UpdatePassword} />
-            <Route exact path='/forgot-password' component={ForgotPassword} />
-            <Route exact path='/password/reset/:token' component={ResetPassword} />
-            <Route exact path='/cart' component={Cart} />
+
+              <Route exact path='/cart' component={Cart} />
+              <ProtectedRoute exact path='/shipping' component={Shipping} />
+
+              <Route path='*' component={PageNotFound} />
+            </Switch>
+
 
           </div>
 

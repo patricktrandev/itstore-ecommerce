@@ -7,7 +7,7 @@ import { Loader } from '../layout/Loader'
 import { MetaData } from '../layout/MetaData'
 
 import { addToCartAction, removeCartItemAction } from '../../redux/actions/cartActions'
-export const Cart = () => {
+export const Cart = ({ history }) => {
 
     const [diableBtn, setDisableBtn] = useState(false)
     const alert = useAlert();
@@ -23,6 +23,9 @@ export const Cart = () => {
         dispatch(addToCartAction(id, newQty))
 
 
+    }
+    const checkoutHandler = () => {
+        history.push('/login?redirect=shipping')
     }
     const handlerStockDecrease = (id, quantity) => {
         const newQty = quantity - 1;
@@ -124,7 +127,7 @@ export const Cart = () => {
                                             <button className="input-group-text btn btn-success" id="coupon_field">APPLY</button>
                                         </div>
                                     </div>
-                                    <button id="checkout_btn" className="btn btn-primary btn-block">Check out</button>
+                                    <button id="checkout_btn" className="btn btn-primary btn-block" onClick={() => checkoutHandler()}>Check out</button>
                                 </div>
                             </div>
                         </div>

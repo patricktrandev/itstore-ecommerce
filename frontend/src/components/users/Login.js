@@ -8,7 +8,7 @@ import { loginAction, clearErrors } from '../../redux/actions/usersAction'
 import { Loader } from '../layout/Loader'
 import { MetaData } from '../layout/MetaData'
 
-export const Login = ({ history }) => {
+export const Login = ({ history, location }) => {
     const alert = useAlert();
     const dispatch = useDispatch();
 
@@ -17,13 +17,14 @@ export const Login = ({ history }) => {
 
 
     const { isAuthenticated, loading, error } = useSelector(state => state.userReducer)
+    const redirect = location.search ? location.search.split('=')[1] : '/'
     const submitHandler = (e) => {
         e.preventDefault();
         dispatch(loginAction(email, password))
     }
     useEffect(() => {
         if (isAuthenticated) {
-            history.push('/')
+            history.push(redirect)
         }
         if (error) {
             alert.error(error);
