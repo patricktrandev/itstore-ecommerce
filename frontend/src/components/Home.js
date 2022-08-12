@@ -31,7 +31,7 @@ const categories = [
 ]
 export const Home = ({ match }) => {
     const [currentPage, setCurrentPage] = useState(1)
-    const [price, setPrice] = useState([1, 1000])
+    const [price, setPrice] = useState([1, 2000])
     const [category, setCategory] = useState('')
     const [rating, setRating] = useState(5)
     const alert = useAlert();
@@ -81,10 +81,10 @@ export const Home = ({ match }) => {
                                     <div className='px-5'>
                                         <Slider
                                             range
-                                            marks={{ 1: `$1`, 1000: `$1000` }}
+                                            marks={{ 1: `$1`, 2000: `$2000` }}
                                             min={1}
-                                            max={1000}
-                                            defaultValue={[1, 1000]}
+                                            max={2000}
+                                            defaultValue={[1, 2000]}
                                             value={price}
                                             onChange={price => setPrice(price)}
                                         />

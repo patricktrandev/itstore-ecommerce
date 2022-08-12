@@ -24,7 +24,7 @@ export const Profile = () => {
                         <div className="col-12 col-md-5">
                             <h4>Full Name</h4>
                             <p>{user.name}</p>
-                            <h4>Email Address</h4>
+                            <h4>Email</h4>
                             <p>{user.email}</p>
                             <h5 className='font-italic small'>Joined on</h5>
                             <p className='font-italic small'>{String(user.createdAt).substring(0, 10)}</p>

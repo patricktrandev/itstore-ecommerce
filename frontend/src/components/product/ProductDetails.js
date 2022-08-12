@@ -6,12 +6,46 @@ import { getSingleProductsAction, clearErrors } from '../../redux/actions/produc
 import { Loader } from '../layout/Loader'
 import { MetaData } from '../layout/MetaData'
 
+
+import { addToCartAction } from '../../redux/actions/cartActions'
 export const ProductDetails = ({ match }) => {
+    let [quantity, setQuantity] = useState(1);
     const dispatch = useDispatch();
 
     const alert = useAlert();
     const { loading, error, product } = useSelector(state => state.productDetailsReducer)
 
+
+    const handlerStockIncrease = () => {
+        //console.log("click me")
+        const count = document.querySelector('.count');
+        //console.log(count.valueAsNumber);
+        if (count.valueAsNumber >= product.stock) {
+            return;
+        }
+
+        setQuantity(count.valueAsNumber + 1);
+
+
+    }
+    const handlerStockDecrease = () => {
+        //console.log("click me --")
+        const count = document.querySelector('.count');
+        //console.log(count.valueAsNumber);
+
+        if (count.valueAsNumber <= 1) {
+            alert.error("Minimum quanity is 1")
+            return;
+        }
+
+        setQuantity(count.valueAsNumber - 1);
+
+
+    }
+    const addToCartHandler = () => {
+        dispatch(addToCartAction(match.params.id, quantity));
+        alert.success('Item Added To Cart')
+    }
     useEffect(() => {
         dispatch(getSingleProductsAction(match.params.id))
         if (error) {
@@ -48,13 +82,11 @@ export const ProductDetails = ({ match }) => {
                         <hr />
                         <p id="product_price"><span className='small'>$</span> {product.price.toLocaleString()}</p>
                         <div className="stockCounter d-inline">
-                            <span className="btn btn-danger minus">-</span>
-                            <input type="number" className="form-control count d-inline" defaultValue={1} readOnly />
-                            <span className="btn btn-primary plus">+</span>
+                            <span className="btn btn-danger rounded-circle minus p-1" onClick={() => handlerStockDecrease()}><i className="fa fa-minus p-1"></i></span>
+                            <input type="number" className="form-control count d-inline" value={quantity} readOnly />
+                            <span className="btn btn-primary plus rounded-circle p-1" onClick={() => handlerStockIncrease()}><i className="fa fa-plus p-1"></i></span>
                         </div>
-                        <button id="cart_btn" type="button" className="btn btn-primary d-inline ml-4"> <span className=' p-2'> <i className="fa fa-cart-plus " ></i></span>
-
-                            Add to Cart </button>
+                        <button id="cart_btn" type="button" className="btn btn-primary d-inline ml-4" disabled={product.stock === 0} onClick={() => addToCartHandler()}> Add to Cart </button>
                         <hr />
                         <p>Status <span id="stock_status" className={product.stock > 0 ? 'greenColor' : 'redColor'}>{product.stock > 0 ? 'In Stock' : 'Out of Stock'}</span></p>
                         <hr />
