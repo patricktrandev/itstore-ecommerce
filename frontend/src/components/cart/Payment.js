@@ -6,6 +6,7 @@ import { MetaData } from '../layout/MetaData'
 import { CheckoutStep } from './CheckoutStep'
 import axios from 'axios'
 
+import { newOrderAction, clearErrors } from '../../redux/actions/orderActions'
 import {
     CardNumberElement,
     CardExpiryElement,
@@ -34,26 +35,27 @@ export const Payment = ({ history }) => {
 
     const { user } = useSelector(state => state.userReducer);
     const { cartItems, shippingInfo } = useSelector(state => state.cartReducer)
-
+    const { error } = useSelector(state => state.newOrderReducer)
     const orderInfo = JSON.parse(sessionStorage.getItem('orderInfo'));
     //console.log("orderInfo", Math.round(orderInfo.totalPrice * 100))
     const paymentData = {
         amount: Math.round(orderInfo.totalPrice * 100)
     }
-    console.log(paymentData)
-    // useEffect(() => {
+    //console.log(paymentData)
 
-    //     if (error) {
-    //         alert.error(error)
-    //         dispatch(clearErrors())
-    //     }
-
-    // }, [dispatch, alert, error])
 
     const order = {
         orderItems: cartItems,
         shippingInfo
     }
+
+    if (orderInfo) {
+        order.itemsPrice = orderInfo.itemsPrice
+        order.shippingPrice = orderInfo.shippingPrice
+        order.taxPrice = orderInfo.taxPrice
+        order.totalPrice = orderInfo.totalPrice
+    }
+
 
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -101,8 +103,9 @@ export const Payment = ({ history }) => {
                         id: result.paymentIntent.id,
                         status: result.paymentIntent.status
                     }
+                    console.log("order", order)
+                    dispatch(newOrderAction(order))
 
-                    // dispatch(createOrder(order))
 
                     history.push('/success')
                 } else {
@@ -116,6 +119,16 @@ export const Payment = ({ history }) => {
             alert.error(error.response.data.message)
         }
     }
+
+    useEffect(() => {
+
+        if (error) {
+            alert.error(error)
+            dispatch(clearErrors())
+        }
+
+    }, [dispatch, alert, error])
+
     return (
         <Fragment>
             <MetaData title={'Payment Process | ShopIT'} />
@@ -169,7 +182,7 @@ export const Payment = ({ history }) => {
                         >
                             <i className="fab fa-cc-visa mr-2"></i>
                             Pay -
-                            <span className='font-italic'>  {orderInfo && `$${orderInfo.totalPrice}`} </span>
+                            <span className='font-italic'>  {orderInfo && `$${(orderInfo.totalPrice).toFixed(2)}`} </span>
                         </button>
 
                     </form>

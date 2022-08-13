@@ -75,13 +75,13 @@ export const ConfirmOrder = ({ history }) => {
                     <div id="order_summary">
                         <h4>Order Summary</h4>
                         <hr />
-                        <p>Subtotal:  <span className="order-summary-values">${itemsPrice}</span></p>
+                        <p>Subtotal:  <span className="order-summary-values">${itemsPrice.toFixed(2)}</span></p>
                         <p>Shipping: <span className="order-summary-values">${shippingPrice}</span></p>
                         <p>Tax <small>(5%)</small> :  <span className="order-summary-values">${taxPrice}</span></p>
 
                         <hr />
 
-                        <p>Total: <span className="order-summary-values">${totalPrice}</span></p>
+                        <p>Total: <span className="order-summary-values">${totalPrice.toFixed(2)}</span></p>
 
                         <hr />
                         <button id="checkout_btn" className="btn btn-primary btn-block" onClick={() => processToPayment()} >Proceed to Payment</button>
