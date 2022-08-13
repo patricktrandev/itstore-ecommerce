@@ -1,5 +1,6 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css';
+import axios from 'axios'
 import React, { Fragment } from "react";
 import {
   BrowserRouter as Router,
@@ -27,11 +28,22 @@ import { ResetPassword } from './components/users/ResetPassword';
 import { Cart } from './components/cart/Cart';
 import { Shipping } from './components/cart/Shipping';
 import { ConfirmOrder } from './components/cart/ConfirmOrder';
+import { Payment } from './components/cart/Payment';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+import { Success } from './components/cart/Success';
 function App() {
+  const [stripeApiKey, setStripeApiKey] = useState('');
 
   useEffect(() => {
     store.dispatch(loadUserAction())
+    async function getStripeApiKey() {
+      const { data } = await axios.get('/api/v1/stripeapi');
+      setStripeApiKey(data.stripeApiKey)
+    }
+    getStripeApiKey();
   }, [])
+
   return (
     <Fragment>
       <Router>
@@ -56,6 +68,12 @@ function App() {
               <Route exact path='/cart' component={Cart} />
               <ProtectedRoute exact path='/shipping' component={Shipping} />
               <ProtectedRoute exact path='/order/confirm' component={ConfirmOrder} />
+              {
+                stripeApiKey && <Elements stripe={loadStripe(stripeApiKey)}>
+                  <ProtectedRoute exact path='/payment' component={Payment} />
+                </Elements>
+              }
+              <Route exact path='/success' component={Success} />
 
               <Route path='*' component={PageNotFound} />
             </Switch>

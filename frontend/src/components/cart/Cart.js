@@ -16,7 +16,7 @@ export const Cart = ({ history }) => {
     const handlerStockIncrease = (id, quantity, stock) => {
         const newQty = quantity + 1;
         if (newQty > stock) {
-            alert.error('You reach the maximum number')
+            alert.error(<div style={{ color: 'red', textTransform: 'capitalize' }}>You reach the maximum number</div>)
             return;
         }
 
@@ -30,7 +30,7 @@ export const Cart = ({ history }) => {
     const handlerStockDecrease = (id, quantity) => {
         const newQty = quantity - 1;
         if (newQty < 1) {
-            alert.error('Minimum quanity is 1')
+            alert.error(<div style={{ color: 'red', textTransform: 'capitalize' }}>Minimum quanity is 1</div>)
             return;
         }
 
@@ -40,7 +40,7 @@ export const Cart = ({ history }) => {
     }
     const handlerRemoveCartItem = (id) => {
         dispatch(removeCartItemAction(id));
-        alert.success('Remove item successfully')
+        alert.success(<div style={{ color: 'green', textTransform: 'capitalize' }}>Remove item successfully</div>)
     }
     const renderCartItems = () => {
         return cartItems.map((item, index) => {

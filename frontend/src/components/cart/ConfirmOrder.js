@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 
 import { MetaData } from '../layout/MetaData'
 
-import { addToCartAction, removeCartItemAction } from '../../redux/actions/cartActions'
+
 import { CheckoutStep } from './CheckoutStep'
 export const ConfirmOrder = ({ history }) => {
     const { cartItems, shippingInfo } = useSelector(state => state.cartReducer);
@@ -18,8 +18,18 @@ export const ConfirmOrder = ({ history }) => {
     }, 0)
     let shippingPrice = itemsPrice > 200 ? 0 : 25;
     let taxPrice = Number((0.05 * itemsPrice)).toFixed(2);
-    let totalPrice = Number(itemsPrice + shippingPrice + Number(taxPrice)).toLocaleString();
+    let totalPrice = Number(itemsPrice + shippingPrice + Number(taxPrice));
+    const processToPayment = () => {
+        const data = {
+            itemsPrice: itemsPrice.toFixed(2),
+            shippingPrice,
+            taxPrice,
+            totalPrice
+        }
 
+        sessionStorage.setItem('orderInfo', JSON.stringify(data))
+        history.push('/payment')
+    }
     return (
         <Fragment>
             <MetaData title={'Confirm Order | ShopIT'} />
@@ -74,7 +84,7 @@ export const ConfirmOrder = ({ history }) => {
                         <p>Total: <span className="order-summary-values">${totalPrice}</span></p>
 
                         <hr />
-                        <button id="checkout_btn" className="btn btn-primary btn-block" >Proceed to Payment</button>
+                        <button id="checkout_btn" className="btn btn-primary btn-block" onClick={() => processToPayment()} >Proceed to Payment</button>
                     </div>
                 </div>
 

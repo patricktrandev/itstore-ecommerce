@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-
+const dotenv = require('dotenv')
 const cookieParser = require('cookie-parser')
 const bodyparser = require('body-parser')
 const fileUpload = require('express-fileupload')
@@ -11,8 +11,10 @@ app.use(fileUpload())
 const products = require('./routes/products')
 const auth = require('./routes/user')
 const order = require('./routes/orders')
+const payment = require('./routes/payment')
 
 
+dotenv.config({ path: 'backend/config/config.env' })
 
 
 
@@ -45,4 +47,5 @@ app.use(function (err, req, res, next) {
 app.use('/api/v1', products)
 app.use('/api/v1', auth)
 app.use('/api/v1', order)
+app.use('/api/v1', payment)
 module.exports = app
