@@ -16,11 +16,12 @@ export const ProductDetails = ({ match }) => {
     const dispatch = useDispatch();
 
     const alert = useAlert();
-    const { loading, error, product } = useSelector(state => state.productDetailsReducer)
+    const { loading, error, product, viewedProducts } = useSelector(state => state.productDetailsReducer)
     const { user } = useSelector(state => state.userReducer)
     const { error: reviewError, success } = useSelector(state => state.newReviewReducer)
     const id = match.params.id;
 
+    //console.log(viewedProducts)
     useEffect(() => {
         dispatch(getSingleProductsAction(id))
 
@@ -141,7 +142,7 @@ export const ProductDetails = ({ match }) => {
                         </div>
                         <span id="no_of_reviews">({product.numOfReviews} reviews)</span>
                         <hr />
-                        <p id="product_price"><span className='small'>$</span> {product.price.toLocaleString()}</p>
+                        <p id="product_price"><span className='small'>$</span> {product.price}</p>
                         <div className="stockCounter d-inline">
                             <span className="btn btn-danger rounded-circle minus p-1" onClick={() => handlerStockDecrease()}><i className="fa fa-minus p-1"></i></span>
                             <input type="number" className="form-control count d-inline" value={quantity} readOnly />

@@ -37,6 +37,9 @@ export const Home = ({ match }) => {
     const alert = useAlert();
     const dispatch = useDispatch();
     const { loading, products, error, productCount, perPage } = useSelector(state => state.productReducer)
+    const { viewedProducts } = useSelector(state => state.productDetailsReducer)
+
+    console.log("---", viewedProducts)
     const keyword = match.params.keyword;
     // console.log("my key", keyword)
     const setCurrentPageNo = (pageNumber) => {
@@ -124,6 +127,8 @@ export const Home = ({ match }) => {
                     </div>
                 </section>
 
+
+
                 {perPage <= productCount && (
                     <div className='d-flex justify-content-end mt-5'>
                         <Pagination
@@ -140,6 +145,28 @@ export const Home = ({ match }) => {
                     </div>
                 )}
 
+                {
+                    viewedProducts && viewedProducts.length > 0 && (
+                        <Fragment>
+                            <hr />
+                            <h5 id="products_heading">Recently Viewed</h5>
+                            <section id="products" className="container mt-5">
+                                <div className="row">
+                                    {
+
+                                        viewedProducts.map((viewed, index) => {
+                                            if (index < (Number(viewedProducts.length) - 4)) {
+                                                return <Fragment></Fragment>
+                                            }
+                                            return <Product item={viewed} key={viewed._id} col={3} />
+                                        })
+                                    }
+                                </div>
+                            </section>
+
+                        </Fragment>
+                    )
+                }
 
             </Fragment>}
 

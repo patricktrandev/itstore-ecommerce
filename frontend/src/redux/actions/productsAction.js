@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { bindActionCreators } from 'redux';
 
 import {
     all_products_request,
@@ -41,6 +42,7 @@ export const getProductsAction = (keyword = '', currentPage = 1, price, category
     }
 }
 
+
 export const getSingleProductsAction = (id) => async (dispatch) => {
 
 
@@ -62,6 +64,7 @@ export const getSingleProductsAction = (id) => async (dispatch) => {
         })
     }
 }
+
 
 export const newReviewAction = (reviewData) => async (dispatch) => {
 
