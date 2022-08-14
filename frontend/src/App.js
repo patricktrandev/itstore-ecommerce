@@ -33,6 +33,8 @@ import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 
 import { OrderSuccess } from './components/cart/OrderSuccess';
+import { OrdersList } from './components/order/OrdersList';
+import { OrderDetails } from './components/order/OrderDetails';
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState('');
 
@@ -69,13 +71,16 @@ function App() {
               <Route exact path='/cart' component={Cart} />
               <ProtectedRoute exact path='/shipping' component={Shipping} />
               <ProtectedRoute exact path='/success' component={OrderSuccess} />
+              <ProtectedRoute exact path='/orders/me' component={OrdersList} />
+              <Route exact path='/order/:id' component={OrderDetails} />
 
-              <ProtectedRoute exact path='/order/confirm' component={ConfirmOrder} />
+              <ProtectedRoute exact path='/confirm' component={ConfirmOrder} />
               {
                 stripeApiKey && <Elements stripe={loadStripe(stripeApiKey)}>
                   <ProtectedRoute exact path='/payment' component={Payment} />
                 </Elements>
               }
+
 
               <Route path='*' component={PageNotFound} />
             </Switch>

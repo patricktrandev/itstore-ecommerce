@@ -255,10 +255,10 @@ const loginUser = catchAsyncErrors(async (req, res, next) => {
 
 
         if (!user) {
-            return next(res.status(401).json({
+            return res.status(401).json({
                 isSuccess: false,
                 error: "Invalid Email or Password"
-            }))
+            })
         }
 
         // Checks if password is correct or not

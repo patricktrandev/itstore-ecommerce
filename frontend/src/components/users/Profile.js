@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { Loader } from '../layout/Loader'
 import { MetaData } from '../layout/MetaData'
-
+import { Title } from '../layout/TagTitle'
 export const Profile = () => {
 
     const { user, loading } = useSelector(state => state.userReducer)
@@ -19,6 +19,11 @@ export const Profile = () => {
                             <figure className="avatar avatar-profile">
                                 <img src={user.avatar.url} className="rounded-circle img-fluid" style={{ border: '5px solid #ff4000', boxShadow: 'rgb(200 200 200) 0px 2px 8px 6px' }} alt={user.name} />
                             </figure>
+                            <div className='text-center m-4' >
+                                <Title className='text-center' >#{String(user.role).toUpperCase()}</Title>
+                            </div>
+
+                            <hr />
                             <Link to="/me/update" id="edit_profile" className="btn btn-primary btn-block my-5">Edit Profile</Link>
                         </div>
                         <div className="col-12 col-md-5">

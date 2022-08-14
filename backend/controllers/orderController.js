@@ -63,6 +63,35 @@ const getMyOrder = catchAsyncErrors(async (req, res, next) => {
     }
 })
 
+//get single order by id 
+const getSingleOrder = catchAsyncErrors(async (req, res, next) => {
+    try {
+        const order = await Order.findById(req.params.id).populate('user', 'name email')
+
+        if (!order) {
+            return next(res.status(404).json({
+                isSuccess: false,
+                message: 'No Order found with this ID'
+            }))
+
+        }
+
+        res.status(200).json({
+            success: true,
+            order
+        })
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({
+            isSuccess: false,
+            error: `${err.message} -- ${err._message}`,
+            code: err.code || 500
+        })
+    }
+
+})
+
+
 // api/v1/admin/orders
 const getAllOrders = catchAsyncErrors(async (req, res, next) => {
     try {
@@ -174,5 +203,6 @@ module.exports = {
     getMyOrder,
     getAllOrders,
     updateOrder,
-    deleteOrder
+    deleteOrder,
+    getSingleOrder
 }

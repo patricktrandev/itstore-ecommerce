@@ -75,7 +75,7 @@ export const Payment = ({ history }) => {
 
             const clientSecret = res.data.client_secret;
 
-            console.log("client secret", clientSecret);
+            //console.log("client secret", clientSecret);
 
             if (!stripe || !elements) {
                 return;

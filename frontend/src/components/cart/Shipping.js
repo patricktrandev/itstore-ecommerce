@@ -24,7 +24,7 @@ export const Shipping = ({ history }) => {
             phoneNo,
             country
         }))
-        history.push('/order/confirm')
+        history.push('/confirm')
     }
 
     return (
