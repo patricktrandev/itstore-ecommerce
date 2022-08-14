@@ -19,6 +19,10 @@ import {
     new_product_request,
     new_product_success,
     new_product_fail,
+    delete_product_success,
+    delete_product_fail,
+    delete_product_reset,
+    delete_product_request,
 } from '../constants/productConstants'
 
 export const getProductsAction = (keyword = '', currentPage = 1, price, category, rating) => async (dispatch) => {
@@ -141,6 +145,29 @@ export const newProductAdminAction = (productData) => async (dispatch) => {
     } catch (err) {
         dispatch({
             type: new_product_fail,
+            payload: err.response.data.message
+        })
+    }
+}
+
+
+export const deleteProductAction = (id) => async (dispatch) => {
+
+
+    try {
+        dispatch({
+            type: delete_product_request,
+        })
+
+        const { data } = await axios.delete(`/api/v1/admin/products/${id}`)
+        dispatch({
+            type: delete_product_success,
+            payload: data.success
+        })
+
+    } catch (err) {
+        dispatch({
+            type: delete_product_fail,
             payload: err.response.data.message
         })
     }

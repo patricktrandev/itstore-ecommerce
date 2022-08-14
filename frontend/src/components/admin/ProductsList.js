@@ -4,18 +4,20 @@ import { MDBDataTable } from 'mdbreact'
 
 import { MetaData } from '../layout/MetaData'
 import { Loader } from '../layout/Loader'
-
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css';
 import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAdminProductsAction, clearErrors } from '../../redux/actions/productsAction'
+import { getAdminProductsAction, clearErrors, deleteProductAction } from '../../redux/actions/productsAction'
 import { StyledTag } from '../layout/TagStyled';
 import { Sidebar } from './Sidebar'
+import { delete_product_reset } from '../../redux/constants/productConstants'
 export const ProductsList = ({ history }) => {
 
     const alert = useAlert();
     const dispatch = useDispatch();
     const { loading, error, products } = useSelector(state => state.productReducer)
-
+    const { error: deleteError, isDeleted } = useSelector(state => state.HandleProductReducer)
     const renderProductTable = () => {
         const data = {
             columns: [
@@ -58,12 +60,36 @@ export const ProductsList = ({ history }) => {
                         <Link to={`/admin/product/${product._id}`} className="mx-2 btn btn-primary py-1 px-2">
                             <i className="fa fa-pencil"></i>
                         </Link>
-                        <button className="mx-2 btn btn-danger py-1 px-2"><i className="fa fa-trash-alt"></i></button>
+                        <button className="mx-2 btn btn-danger py-1 px-2" onClick={() => deleteProductHandler(product._id)}><i className="fa fa-trash-alt"></i></button>
                     </Fragment>
 
             })
         })
         return data;
+    }
+
+    const submitDelete = (id) => {
+        console.log("id", id)
+        dispatch(deleteProductAction(id));
+    }
+
+    const deleteProductHandler = (id) => {
+        confirmAlert({
+            title: 'Confirm to delete',
+            message: 'Are you sure to delete this.',
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => submitDelete(id)
+                },
+                {
+                    label: 'No',
+                    //onClick: () => alert('Click No')
+                }
+            ]
+        });
+
+
     }
 
     useEffect(() => {
@@ -73,7 +99,18 @@ export const ProductsList = ({ history }) => {
             alert.error(error)
             dispatch(clearErrors())
         }
-    }, [dispatch, alert, error])
+        if (deleteError) {
+            alert.error(deleteError)
+            dispatch(clearErrors())
+        }
+        if (isDeleted) {
+            alert.success('Product deleted successfully!')
+            history.push('/admin/products')
+            dispatch({
+                type: delete_product_reset
+            })
+        }
+    }, [dispatch, alert, error, deleteError, history, isDeleted])
     return (
         <Fragment>
             <MetaData title={'All Products'} />

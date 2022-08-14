@@ -117,7 +117,7 @@ const addNewProduct = catchAsyncErrors(async (req, res, next) => {
     } catch (err) {
         console.log(err);
         res.status(500).json({
-            isSuccess: false,
+            success: false,
             message: `${err.message} -- message:${err._message} -- Invalid property`
         })
     }
@@ -131,7 +131,7 @@ const updateProduct = catchAsyncErrors(async (req, res, next) => {
 
         if (!product) {
             res.status(404).json({
-                isSuccess: false,
+                success: false,
                 message: "Product has not found..."
             })
         }
@@ -140,13 +140,13 @@ const updateProduct = catchAsyncErrors(async (req, res, next) => {
             runValidators: true
         })
         res.status(200).json({
-            isSuccess: true,
+            success: true,
             product
         })
     } catch (err) {
         console.log(err);
         res.status(500).json({
-            isSuccess: false,
+            success: false,
             message: err.message
         })
     }
@@ -159,19 +159,22 @@ const deleteProduct = catchAsyncErrors(async (req, res, next) => {
         const product = await Product.findById(id);
         if (!product) {
             res.status(404).json({
-                isSuccess: false,
+                success: false,
                 message: 'Product has not found...'
             })
         }
+        for (let i = 0; i < product.images.length; i++) {
+            const result = await cloudinary.v2.uploader.destroy(product.images[i].public_id)
+        }
         await Product.deleteOne();
         res.status(200).json({
-            isSuccess: true,
+            success: true,
             message: "Product has been deleted"
         })
     } catch (err) {
         console.log(err);
         res.status(500).json({
-            isSuccess: false,
+            success: false,
             message: `${err.message} -- Invalid _id property`
         })
     }

@@ -4,6 +4,10 @@ import {
     all_products_success,
     all_products_fail,
     new_product_request,
+    delete_product_success,
+    delete_product_fail,
+    delete_product_reset,
+    delete_product_request,
     new_product_success,
     new_product_fail,
     admin_products_request,
@@ -85,6 +89,45 @@ export const newProductReducer = (state = { product: {} }, action) => {
             return {
                 ...state,
                 success: false
+            }
+        }
+        case clearErrors: {
+            return {
+                ...state,
+                error: null
+            }
+        }
+        default:
+            return state
+    }
+}
+
+
+export const HandleProductReducer = (state = { product: {} }, action) => {
+    switch (action.type) {
+        case delete_product_request: {
+            return {
+                ...state,
+                loading: true
+            }
+        }
+        case delete_product_success: {
+            return {
+                ...state,
+                loading: false,
+                isDeleted: action.payload
+            }
+        }
+        case delete_product_fail: {
+            return {
+                loading: false,
+                error: action.payload
+            }
+        }
+        case delete_product_reset: {
+            return {
+                ...state,
+                isDeleted: false
             }
         }
         case clearErrors: {

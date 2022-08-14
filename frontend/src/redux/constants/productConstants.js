@@ -24,4 +24,9 @@ export const new_product_request = 'NEW_PRODUCT_REQUEST'
 export const new_product_reset = 'NEW_PRODUCT_RESET'
 export const new_product_fail = 'NEW_PRODUCT_FAIL'
 
+export const delete_product_request = 'DELETE_PRODUCT_REQUEST'
+export const delete_product_success = 'DELETE_PRODUCT_SUCCESS'
+export const delete_product_reset = 'DELETE_PRODUCT_RESET'
+export const delete_product_fail = 'DELETE_PRODUCT_FAIL'
+
 export const clear_errors = 'CLEAR_ERRORS'
