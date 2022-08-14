@@ -149,7 +149,7 @@ export const Home = ({ match }) => {
                     viewedProducts && viewedProducts.length > 0 && (
                         <Fragment>
                             <hr />
-                            <h5 id="products_heading">Recently Viewed</h5>
+                            <h5 id="products_heading">Recently Viewed  <i className="fa fa-eye"></i></h5>
                             <section id="products" className="container mt-5">
                                 <div className="row">
                                     {

@@ -39,6 +39,7 @@ import { Dashboard } from './components/admin/Dashboard';
 import { ProductsList } from './components/admin/ProductsList';
 import { NewProduct } from './components/admin/NewProduct';
 import { useSelector } from 'react-redux'
+import { UpdateProduct } from './components/admin/UpdateProduct';
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState('');
   const { loading, error, user } = useSelector(state => state.userReducer)
@@ -105,6 +106,7 @@ function App() {
           <ProtectedRoute exact path='/dashboard' isAdmin={true} component={Dashboard} />
           <ProtectedRoute exact path='/admin/products' isAdmin={true} component={ProductsList} />
           <ProtectedRoute exact path='/admin/product' isAdmin={true} component={NewProduct} />
+          <ProtectedRoute exact path='/admin/product/:id' isAdmin={true} component={UpdateProduct} />
 
 
           {

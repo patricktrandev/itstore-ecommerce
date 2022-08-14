@@ -61,6 +61,9 @@ export const ProductsList = ({ history }) => {
                             <i className="fa fa-pencil"></i>
                         </Link>
                         <button className="mx-2 btn btn-danger py-1 px-2" onClick={() => deleteProductHandler(product._id)}><i className="fa fa-trash-alt"></i></button>
+                        <Link to={`/products/${product._id}`} className="mx-2 btn btn-success py-1 px-2">
+                            <i className="fa fa-eye"></i>
+                        </Link>
                     </Fragment>
 
             })

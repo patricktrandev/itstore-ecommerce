@@ -29,4 +29,10 @@ export const delete_product_success = 'DELETE_PRODUCT_SUCCESS'
 export const delete_product_reset = 'DELETE_PRODUCT_RESET'
 export const delete_product_fail = 'DELETE_PRODUCT_FAIL'
 
+export const update_product_request = 'UPDATE_PRODUCT_REQUEST'
+export const update_product_success = 'UPDATE_PRODUCT_SUCCESS'
+export const update_product_reset = 'UPDATE_PRODUCT_RESET'
+export const update_product_fail = 'UPDATE_PRODUCT_FAIL'
+
+
 export const clear_errors = 'CLEAR_ERRORS'

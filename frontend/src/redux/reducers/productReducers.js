@@ -8,6 +8,10 @@ import {
     delete_product_fail,
     delete_product_reset,
     delete_product_request,
+    update_product_success,
+    update_product_fail,
+    update_product_reset,
+    update_product_request,
     new_product_success,
     new_product_fail,
     admin_products_request,
@@ -105,6 +109,7 @@ export const newProductReducer = (state = { product: {} }, action) => {
 
 export const HandleProductReducer = (state = { product: {} }, action) => {
     switch (action.type) {
+        case update_product_request:
         case delete_product_request: {
             return {
                 ...state,
@@ -118,16 +123,31 @@ export const HandleProductReducer = (state = { product: {} }, action) => {
                 isDeleted: action.payload
             }
         }
+        case update_product_success: {
+            return {
+                ...state,
+                loading: false,
+                isUpdated: action.payload
+            }
+        }
+        case update_product_fail:
         case delete_product_fail: {
             return {
                 loading: false,
                 error: action.payload
             }
         }
+
         case delete_product_reset: {
             return {
                 ...state,
                 isDeleted: false
+            }
+        }
+        case update_product_reset: {
+            return {
+                ...state,
+                isUpdated: false
             }
         }
         case clearErrors: {
