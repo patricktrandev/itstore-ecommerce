@@ -37,9 +37,11 @@ import { OrdersList } from './components/order/OrdersList';
 import { OrderDetails } from './components/order/OrderDetails';
 import { Dashboard } from './components/admin/Dashboard';
 import { ProductsList } from './components/admin/ProductsList';
+import { NewProduct } from './components/admin/NewProduct';
+import { useSelector } from 'react-redux'
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState('');
-
+  const { loading, error, user } = useSelector(state => state.userReducer)
   useEffect(() => {
     store.dispatch(loadUserAction())
     async function getStripeApiKey() {
@@ -102,13 +104,18 @@ function App() {
           </div>
           <ProtectedRoute exact path='/dashboard' isAdmin={true} component={Dashboard} />
           <ProtectedRoute exact path='/admin/products' isAdmin={true} component={ProductsList} />
+          <ProtectedRoute exact path='/admin/product' isAdmin={true} component={NewProduct} />
+
+
+          {
+            !loading && user && user.role !== 'admin' && (
+              <Footer />
+            )
+          }
 
 
 
 
-
-
-          <Footer />
         </div>
       </Router>
     </Fragment>

@@ -15,7 +15,10 @@ import {
     new_review_request,
     new_review_success,
     new_review_fail,
-    new_review_reset
+    new_review_reset,
+    new_product_request,
+    new_product_success,
+    new_product_fail,
 } from '../constants/productConstants'
 
 export const getProductsAction = (keyword = '', currentPage = 1, price, category, rating) => async (dispatch) => {
@@ -113,6 +116,31 @@ export const newReviewAction = (reviewData) => async (dispatch) => {
     } catch (err) {
         dispatch({
             type: new_review_fail,
+            payload: err.response.data.message
+        })
+    }
+}
+export const newProductAdminAction = (productData) => async (dispatch) => {
+
+
+    try {
+        dispatch({
+            type: new_product_request,
+        })
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        const { data } = await axios.post('/api/v1/admin/products/new', productData, config)
+        dispatch({
+            type: new_product_success,
+            payload: data
+        })
+
+    } catch (err) {
+        dispatch({
+            type: new_product_fail,
             payload: err.response.data.message
         })
     }

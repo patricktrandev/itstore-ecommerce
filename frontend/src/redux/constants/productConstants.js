@@ -19,4 +19,9 @@ export const new_review_success = 'NEW_REVIEW_SUCCESS'
 export const new_review_reset = 'NEW_REVIEW_RESET'
 export const new_review_fail = 'NEW_REVIEW_FAIL'
 
+export const new_product_success = 'NEW_PRODUCT_SUCCESS'
+export const new_product_request = 'NEW_PRODUCT_REQUEST'
+export const new_product_reset = 'NEW_PRODUCT_RESET'
+export const new_product_fail = 'NEW_PRODUCT_FAIL'
+
 export const clear_errors = 'CLEAR_ERRORS'

@@ -1,11 +1,16 @@
+import { clearErrors } from '../actions/orderActions';
 import {
     all_products_request,
     all_products_success,
     all_products_fail,
+    new_product_request,
+    new_product_success,
+    new_product_fail,
     admin_products_request,
     admin_products_success,
     admin_products_fail,
     clear_errors,
+    new_product_reset,
 
 } from '../constants/productConstants'
 let stateDefault = {
@@ -51,6 +56,45 @@ export const productReducer = (state = stateDefault, action) => {
 
         default:
             return { ...state }
+    }
+}
+
+
+export const newProductReducer = (state = { product: {} }, action) => {
+    switch (action.type) {
+        case new_product_request: {
+            return {
+                ...state,
+                loading: true
+            }
+        }
+        case new_product_success: {
+            return {
+                loading: false,
+                success: action.payload.success,
+                product: action.payload.product
+            }
+        }
+        case new_product_fail: {
+            return {
+                loading: false,
+                error: action.payload
+            }
+        }
+        case new_product_reset: {
+            return {
+                ...state,
+                success: false
+            }
+        }
+        case clearErrors: {
+            return {
+                ...state,
+                error: null
+            }
+        }
+        default:
+            return state
     }
 }
 

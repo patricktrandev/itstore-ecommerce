@@ -23,34 +23,34 @@ export const OrdersList = (props) => {
         const data = {
             columns: [
                 {
-                    label: 'Order #',
+                    label: 'Order # ⬍',
                     field: 'id',
                     sort: 'asc'
                 },
                 {
-                    label: 'Date',
+                    label: 'Date ⬍',
                     field: 'dateOrder',
                     sort: 'asc'
                 },
                 {
-                    label: 'Number of Items',
+                    label: 'Number of Items ⬍',
                     field: 'numOfItems',
                     sort: 'asc'
                 },
                 {
-                    label: 'Amount',
+                    label: 'Amount ⬍',
                     field: 'amount',
                     sort: 'asc'
                 },
                 {
-                    label: 'Status',
+                    label: 'Status ⬍',
                     field: 'status',
                     sort: 'asc'
                 },
                 {
                     label: 'Actions',
                     field: 'actions',
-                    sort: 'asc'
+
                 },
             ],
             rows: []

@@ -20,22 +20,22 @@ export const ProductsList = ({ history }) => {
         const data = {
             columns: [
                 {
-                    label: 'ID',
+                    label: 'ID ⬍',
                     field: 'id',
                     sort: 'asc'
                 },
                 {
-                    label: 'Name',
+                    label: 'Name ⬍',
                     field: 'name',
                     sort: 'asc'
                 },
                 {
-                    label: 'Price',
+                    label: 'Price ⬍',
                     field: 'price',
                     sort: 'asc'
                 },
                 {
-                    label: 'Stock',
+                    label: 'Stock ⬍',
                     field: 'stock',
                     sort: 'asc'
                 },
