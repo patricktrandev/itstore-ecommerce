@@ -44,6 +44,8 @@ function App() {
       const { data } = await axios.get('/api/v1/stripeapi');
       setStripeApiKey(data.stripeApiKey)
     }
+
+
     getStripeApiKey();
   }, [])
 
@@ -76,13 +78,14 @@ function App() {
 
               <ProtectedRoute exact path='/confirm' component={ConfirmOrder} />
               {
+
                 stripeApiKey && <Elements stripe={loadStripe(stripeApiKey)}>
                   <ProtectedRoute exact path='/payment' component={Payment} />
                 </Elements>
               }
 
 
-              <Route path='*' component={PageNotFound} />
+
             </Switch>
 
 

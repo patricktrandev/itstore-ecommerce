@@ -8,6 +8,7 @@ import { MetaData } from '../layout/MetaData'
 import { Title } from '../layout/TagTitle'
 import { new_review_reset } from '../../redux/constants/productConstants'
 import { addToCartAction } from '../../redux/actions/cartActions'
+import { ListReview } from '../review/ListReview';
 export const ProductDetails = ({ match }) => {
     let [quantity, setQuantity] = useState(1);
     const [rating, setRating] = useState(0);
@@ -207,6 +208,33 @@ export const ProductDetails = ({ match }) => {
                         </div>
                     </div>
                 </div>
+
+
+
+
+
+                {
+
+                    product.reviews && product.reviews.length > 0 && (
+                        <div className='container'>
+                            <div className="row w-100">
+                                <div className="col-sm-7 col-12 m-auto">
+
+                                    <div className="review-block">
+
+                                        <ListReview reviews={product.reviews} />
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    )
+                }
+
+
+
+
             </Fragment>
             }
         </Fragment>

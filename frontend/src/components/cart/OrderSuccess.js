@@ -6,6 +6,9 @@ export const OrderSuccess = ({ location }) => {
 
 
     const { order } = useSelector(state => state.newOrderReducer);
+
+    localStorage.removeItem('cartItems')
+    console.log('remove done...')
     //console.log(order.order._id)
     // order && console.log(order.order._id)
     return (

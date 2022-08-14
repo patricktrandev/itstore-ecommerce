@@ -688,3 +688,26 @@ ul.CTAs a {
   color: grey;
 }
 
+/* review post */
+
+.review-block{
+	background-color:#FAFAFA;
+	border:1px solid #EFEFEF;
+	padding:15px;
+	border-radius:3px;
+	margin-bottom:15px;
+}
+.review-block-name{
+	font-size:12px;
+	margin:10px 0;
+}
+.review-block-date{
+	font-size:12px;
+}
+.review-block-rate{
+	font-size:13px;
+	margin-bottom:15px;
+}
+.review-block-description{
+	font-size:13px;
+}
