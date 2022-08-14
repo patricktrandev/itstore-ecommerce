@@ -3,7 +3,7 @@ import { Route, Redirect } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { loadUserAction } from '../../redux/actions/usersAction'
-export const ProtectedRoute = ({ component: Component, ...rest }) => {
+export const ProtectedRoute = ({ isAdmin, component: Component, ...rest }) => {
     //const dispatch = useDispatch()
     const { isAuthenticated, loading, user } = useSelector(state => state.userReducer)
     // useEffect(() => {
@@ -30,6 +30,9 @@ export const ProtectedRoute = ({ component: Component, ...rest }) => {
                     render={props => {
                         if (isAuthenticated === false && user === null) {
                             return <Redirect push to='/login' />
+                        }
+                        if (isAdmin === true && user.role !== 'admin') {
+                            return <Redirect to="/" />
                         }
                         return <Component {...props} />
                     }}

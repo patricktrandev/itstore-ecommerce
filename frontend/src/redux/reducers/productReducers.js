@@ -1,4 +1,13 @@
-import { all_products_request, all_products_success, all_products_fail, clear_errors, product_details_success, product_details_request, product_details_fail } from '../constants/productConstants'
+import {
+    all_products_request,
+    all_products_success,
+    all_products_fail,
+    admin_products_request,
+    admin_products_success,
+    admin_products_fail,
+    clear_errors,
+
+} from '../constants/productConstants'
 let stateDefault = {
     products: [],
     perPage: 0,
@@ -11,7 +20,8 @@ let stateDefault = {
 
 export const productReducer = (state = stateDefault, action) => {
     switch (action.type) {
-        case all_products_request: {
+        case all_products_request:
+        case admin_products_request: {
 
             state.products = []
             state.loading = true;
@@ -24,7 +34,13 @@ export const productReducer = (state = stateDefault, action) => {
             state.loading = false
             return { ...state }
         }
-        case all_products_fail: {
+        case admin_products_success: {
+            state.loading = false
+            state.products = action.payload
+            return { ...state }
+        }
+        case all_products_fail:
+        case admin_products_fail: {
             state.loading = false
             state.error = action.payload
             return { ...state }

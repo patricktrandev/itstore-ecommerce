@@ -35,6 +35,8 @@ import { loadStripe } from '@stripe/stripe-js';
 import { OrderSuccess } from './components/cart/OrderSuccess';
 import { OrdersList } from './components/order/OrdersList';
 import { OrderDetails } from './components/order/OrderDetails';
+import { Dashboard } from './components/admin/Dashboard';
+import { ProductsList } from './components/admin/ProductsList';
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState('');
 
@@ -55,42 +57,51 @@ function App() {
         <div className="App">
           <Header />
 
-          <div className='container' style={{ minHeight: '74vh' }}>
-            <Switch>
-              <Route exact path='/' component={Home} />
-              <Route path='/search/:keyword' component={Home} />
-              <Route exact path='/products/:id' component={ProductDetails} />
-              <Route exact path='/login' component={Login} />
-              <Route exact path='/register' component={Register} />
+          <div className='container'>
 
-              <ProtectedRoute exact path='/me' component={Profile} />
-              <ProtectedRoute exact path='/me/update' component={UpdateProfile} />
-              <ProtectedRoute exact path='/password/update' component={UpdatePassword} />
-              <Route exact path='/forgot-password' component={ForgotPassword} />
-              <Route exact path='/password/reset/:token' component={ResetPassword} />
+            <Route exact path='/' component={Home} />
+            <Route path='/search/:keyword' component={Home} />
+            <Route exact path='/products/:id' component={ProductDetails} />
+            <Route exact path='/login' component={Login} />
+            <Route exact path='/register' component={Register} />
 
-
-              <Route exact path='/cart' component={Cart} />
-              <ProtectedRoute exact path='/shipping' component={Shipping} />
-              <ProtectedRoute exact path='/success' component={OrderSuccess} />
-              <ProtectedRoute exact path='/orders/me' component={OrdersList} />
-              <Route exact path='/order/:id' component={OrderDetails} />
-
-              <ProtectedRoute exact path='/confirm' component={ConfirmOrder} />
-              {
-
-                stripeApiKey && <Elements stripe={loadStripe(stripeApiKey)}>
-                  <ProtectedRoute exact path='/payment' component={Payment} />
-                </Elements>
-              }
+            <ProtectedRoute exact path='/me' component={Profile} />
+            <ProtectedRoute exact path='/me/update' component={UpdateProfile} />
+            <ProtectedRoute exact path='/password/update' component={UpdatePassword} />
+            <Route exact path='/forgot-password' component={ForgotPassword} />
+            <Route exact path='/password/reset/:token' component={ResetPassword} />
 
 
 
-            </Switch>
+
+
+
+
+
+
+            <Route exact path='/cart' component={Cart} />
+            <ProtectedRoute exact path='/shipping' component={Shipping} />
+            <ProtectedRoute exact path='/success' component={OrderSuccess} />
+            <ProtectedRoute exact path='/orders/me' component={OrdersList} />
+            <Route exact path='/order/:id' component={OrderDetails} />
+
+
+            <ProtectedRoute exact path='/confirm' component={ConfirmOrder} />
+            {
+
+              stripeApiKey && <Elements stripe={loadStripe(stripeApiKey)}>
+                <ProtectedRoute exact path='/payment' component={Payment} />
+              </Elements>
+            }
+
+
+
+
 
 
           </div>
-
+          <ProtectedRoute exact path='/dashboard' isAdmin={true} component={Dashboard} />
+          <ProtectedRoute exact path='/admin/products' isAdmin={true} component={ProductsList} />
 
 
 

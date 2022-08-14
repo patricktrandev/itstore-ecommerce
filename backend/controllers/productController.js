@@ -37,6 +37,26 @@ const getProducts = catchAsyncErrors(async (req, res, next) => {
 
 })
 
+// /api/v1/admin/products
+const getProductsAdmin = catchAsyncErrors(async (req, res, next) => {
+
+    try {
+
+        let products = await Product.find()
+        res.status(200).json({
+            isSuccess: true,
+            products
+        })
+
+    } catch (err) {
+        console.log(err)
+        res.status(500).json({
+            isSuccess: false,
+            message: `${err.message} -- ${err._message}`
+        })
+    }
+})
+
 //get single product
 const getSingleProduct = catchAsyncErrors(async (req, res, next) => {
 
@@ -236,5 +256,6 @@ module.exports = {
     deleteProduct,
     createProductReview,
     getAllProductReviews,
-    deleteProductReview
+    deleteProductReview,
+    getProductsAdmin
 }
