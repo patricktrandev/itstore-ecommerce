@@ -10,7 +10,14 @@ import {
     my_orders_fail,
     order_details_request,
     order_details_success,
-    order_details_fail
+    order_details_fail,
+    all_orders_request,
+    all_orders_success,
+    all_orders_fail,
+    update_order_request,
+    update_order_success,
+    update_order_fail,
+    update_order_reset
 } from '../constants/orderConstant'
 
 export const newOrderAction = (order) => async (dispatch) => {
@@ -59,6 +66,27 @@ export const myOrdersAction = (order) => async (dispatch) => {
     }
 }
 
+export const getAllOrdersAdminAction = () => async (dispatch) => {
+    try {
+        dispatch({
+            type: all_orders_request
+        })
+
+
+        const { data } = await axios.get('/api/v1/admin/orders')
+        dispatch({
+            type: all_orders_success,
+            payload: data
+        })
+
+    } catch (err) {
+        dispatch({
+            type: all_orders_fail,
+            error: err.response.data.message
+        })
+    }
+}
+
 export const getOrderDetailsAction = (id) => async (dispatch) => {
     try {
         dispatch({
@@ -81,6 +109,30 @@ export const getOrderDetailsAction = (id) => async (dispatch) => {
     }
 }
 
+export const updateOrderAdminAction = (orderData, id) => async (dispatch) => {
+    try {
+        dispatch({
+            type: update_order_request
+        })
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        const { data } = await axios.put(`/api/v1/admin/orders/${id}`, orderData, config)
+        dispatch({
+            type: update_order_success,
+            payload: data.success
+        })
+
+    } catch (err) {
+        dispatch({
+            type: update_order_fail,
+            error: err.response.data.message
+        })
+    }
+}
 
 //clear Error
 export const clearErrors = () => async (dispatch) => {

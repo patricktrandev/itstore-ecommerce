@@ -7,7 +7,7 @@ import { productReducer, newProductReducer, HandleProductReducer } from './reduc
 import { productDetailsReducer, newReviewReducer } from './reducers/productDetailsReducer'
 import { userReducer, userManagementReducer, forgotPasswordReducer } from './reducers/userReducers'
 import { cartReducer } from './reducers/cartReducer'
-import { newOrderReducer, myOrderReducer } from './reducers/orderReducer'
+import { newOrderReducer, myOrderReducer, allOrderReducer, orderAdminReducer } from './reducers/orderReducer'
 import { orderDetailsReducer } from './reducers/OrderDetailsReducer'
 let initialState = {
     cartReducer: {
@@ -30,6 +30,8 @@ const reducer = combineReducers({
     newReviewReducer: newReviewReducer,
     newProductReducer: newProductReducer,
     HandleProductReducer: HandleProductReducer,
+    allOrderReducer: allOrderReducer,
+    orderAdminReducer: orderAdminReducer,
 })
 
 export const store = createStore(reducer, initialState, composeWithDevTools(applyMiddleware(thunk)))

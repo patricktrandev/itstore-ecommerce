@@ -12,6 +12,7 @@ import { update_product_reset } from '../../redux/constants/productConstants'
 import { Sidebar } from './Sidebar'
 
 const categories = [
+    'Please choose your option',
     'Electronics',
     'Cameras',
     'Laptops',

@@ -95,22 +95,22 @@ const getSingleOrder = catchAsyncErrors(async (req, res, next) => {
 // api/v1/admin/orders
 const getAllOrders = catchAsyncErrors(async (req, res, next) => {
     try {
-        const perPage = 2;
+
         //const orderCount = await Order.countDocuments();
-        const { currentPage, skip } = pagination(req.query, perPage);
-        const orders = await Order.find().limit(perPage).skip(skip);
+
+        const orders = await Order.find();
 
         let totalAmount = orders.reduce((val, ele) => {
             return val += ele.totalPrice;
         }, 0)
         if (!orders) {
             return res.status(404).json({
-                isSuccess: false,
+                success: false,
                 message: "Orders has not found..."
             })
         } else {
             res.status(200).json({
-                isSuccess: true,
+                success: true,
                 totalAmount: totalAmount,
                 orders
             })
@@ -119,7 +119,7 @@ const getAllOrders = catchAsyncErrors(async (req, res, next) => {
     } catch (err) {
         console.log(err);
         return res.status(500).json({
-            isSuccess: false,
+            success: false,
             error: `${err.message} -- ${err._message}`,
             code: err.code || 500
         })
@@ -132,7 +132,7 @@ const updateOrder = catchAsyncErrors(async (req, res, next) => {
         const order = await Order.findById(id);
         if (order.orderStatus === 'Delivered') {
             return next(res.status(400).json({
-                isSuccess: false,
+                success: false,
                 message: `You have already delivered this order`
             }))
         }
@@ -154,7 +154,7 @@ const updateOrder = catchAsyncErrors(async (req, res, next) => {
     } catch (err) {
         console.log(err);
         return res.status(500).json({
-            isSuccess: false,
+            success: false,
             error: `${err.message} -- ${err._message}`,
             code: err.code || 500
         })
@@ -164,7 +164,7 @@ const updateOrder = catchAsyncErrors(async (req, res, next) => {
 async function updateStock(id, quantity) {
 
     const product = await Product.findById(id);
-
+    console.log("product", product)
     product.stock = product.stock - quantity;
 
     await product.save({ validateBeforeSave: false })
