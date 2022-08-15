@@ -20,6 +20,14 @@ import {
     clear_errors,
     new_product_reset,
 
+    get_reviews_request,
+    get_reviews_success,
+    get_reviews_fail,
+    delete_review_request,
+    delete_review_success,
+    delete_review_fail,
+    delete_review_reset,
+
 } from '../constants/productConstants'
 let stateDefault = {
     products: [],
@@ -101,6 +109,79 @@ export const newProductReducer = (state = { product: {} }, action) => {
                 error: null
             }
         }
+        default:
+            return state
+    }
+}
+
+
+export const newReviewAdminReducer = (state = { reviews: [] }, action) => {
+    switch (action.type) {
+        case get_reviews_request: {
+            return {
+                ...state,
+                loading: true
+            }
+        }
+        case get_reviews_success: {
+            return {
+                loading: false,
+                reviews: action.payload
+
+            }
+        }
+        case get_reviews_fail: {
+            return {
+                loading: false,
+                error: action.payload
+            }
+        }
+
+        case clearErrors: {
+            return {
+                ...state,
+                error: null
+            }
+        }
+        default:
+            return state
+    }
+}
+
+export const deleteReviewAdminReducer = (state = {}, action) => {
+    switch (action.type) {
+
+        case delete_review_request:
+            return {
+                ...state,
+                loading: true
+            }
+
+        case delete_review_success:
+            return {
+                ...state,
+                loading: false,
+                isDeleted: action.payload
+            }
+
+        case delete_review_fail:
+            return {
+                ...state,
+                error: action.payload
+            }
+
+        case delete_review_reset:
+            return {
+                ...state,
+                isDeleted: false
+            }
+
+        case clearErrors:
+            return {
+                ...state,
+                error: null
+            }
+
         default:
             return state
     }

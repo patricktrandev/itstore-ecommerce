@@ -34,5 +34,14 @@ export const update_product_success = 'UPDATE_PRODUCT_SUCCESS'
 export const update_product_reset = 'UPDATE_PRODUCT_RESET'
 export const update_product_fail = 'UPDATE_PRODUCT_FAIL'
 
+export const get_reviews_request = 'GET_REVIEWS_REQUEST'
+export const get_reviews_success = 'GET_REVIEWS_SUCCESS'
+export const get_reviews_fail = 'GET_REVIEWS_FAIL'
+
+export const delete_review_request = 'DELETE_REVIEW_REQUEST'
+export const delete_review_success = 'DELETE_REVIEW_SUCCESS'
+export const delete_review_reset = 'DELETE_REVIEW_RESET'
+export const delete_review_fail = 'DELETE_REVIEW_FAIL'
+
 
 export const clear_errors = 'CLEAR_ERRORS'

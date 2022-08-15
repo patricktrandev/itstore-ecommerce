@@ -222,10 +222,11 @@ const createProductReview = catchAsyncErrors(async (req, res, next) => {
             rating: Number(rating),
             comment
         }
+        let userId = req.user._id;
         //find product 
         const product = await Product.findById(productId);
         const isReviewed = product.reviews.find(
-            rev => rev.user.toString() === req.user._id.toString()
+            rev => rev.user.toString() === userId.toString()
         );
         if (isReviewed) {
             //if review existed -> update review
@@ -296,12 +297,11 @@ const deleteProductReview = catchAsyncErrors(async (req, res, next) => {
 
         res.status(200).json({
             success: true,
-            reviews: product.reviews
         })
     } catch (err) {
         console.log(err);
         res.status(500).json({
-            isSuccess: false,
+            success: false,
             message: `${err.message} -- Invalid _id property`
         })
     }

@@ -15,18 +15,22 @@ import {
     new_review_request,
     new_review_success,
     new_review_fail,
-    new_review_reset,
     new_product_request,
     new_product_success,
     new_product_fail,
     delete_product_success,
     delete_product_fail,
-    delete_product_reset,
     delete_product_request,
     update_product_success,
     update_product_fail,
-    update_product_reset,
     update_product_request,
+    get_reviews_request,
+    get_reviews_success,
+    get_reviews_fail,
+    delete_review_request,
+    delete_review_success,
+    delete_review_fail,
+    delete_review_reset,
 } from '../constants/productConstants'
 
 export const getProductsAction = (keyword = '', currentPage = 1, price, category, rating) => async (dispatch) => {
@@ -199,6 +203,56 @@ export const updateProductAdminAction = (id, productData) => async (dispatch) =>
         dispatch({
             type: update_product_fail,
             payload: err.response.data.message
+        })
+    }
+}
+
+
+export const getProductReviewAdminAction = (id) => async (dispatch) => {
+
+
+    try {
+        dispatch({
+            type: get_reviews_request,
+        })
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        const { data } = await axios.get(`/api/v1/reviews?id=${id}`)
+        dispatch({
+            type: get_reviews_success,
+            payload: data.reviews
+        })
+
+    } catch (err) {
+        dispatch({
+            type: get_reviews_fail,
+            payload: err.response.data.message
+        })
+    }
+}
+
+export const deleteReviewAdminAction = (id, productId) => async (dispatch) => {
+    try {
+
+        dispatch({ type: delete_review_request })
+
+        const { data } = await axios.delete(`/api/v1/reviews?id=${id}&productId=${productId}`)
+
+        dispatch({
+            type: delete_review_success,
+            payload: data.success
+        })
+
+    } catch (error) {
+
+        console.log(error.response);
+
+        dispatch({
+            type: delete_review_fail,
+            payload: error.response.data.message
         })
     }
 }

@@ -44,6 +44,7 @@ import { OrdersListAdmin } from './components/admin/OrdersListAdmin';
 import { ProcessOrder } from './components/admin/ProcessOrder';
 import { UserListAdmin } from './components/admin/UserListAdmin';
 import { UpdateUserByAdmin } from './components/admin/UpdateUserByAdmin';
+import { ProductReviews } from './components/admin/ProductReviews';
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState('');
   const { loading, error, user } = useSelector(state => state.userReducer)
@@ -115,8 +116,8 @@ function App() {
           <ProtectedRoute exact path='/admin/orders' isAdmin={true} component={OrdersListAdmin} />
           <ProtectedRoute exact path='/admin/orders/:id' isAdmin={true} component={ProcessOrder} />
           <ProtectedRoute exact path='/admin/users' isAdmin={true} component={UserListAdmin} />
-          <Route exact path='/admin/user/:id' component={UpdateUserByAdmin} />
-
+          <ProtectedRoute exact path='/admin/user/:id' component={UpdateUserByAdmin} />
+          <ProtectedRoute exact path='/admin/reviews' isAdmin={true} component={ProductReviews} />
           {
             !loading && user && user.role !== 'admin' && (
               <Footer />
