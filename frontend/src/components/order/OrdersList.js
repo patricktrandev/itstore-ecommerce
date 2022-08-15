@@ -18,7 +18,7 @@ export const OrdersList = (props) => {
     const alert = useAlert();
     const dispatch = useDispatch();
     const { loading, error, orders } = useSelector(state => state.myOrderReducer)
-    console.log(orders)
+
     const renderOrderTable = () => {
         const data = {
             columns: [

@@ -42,6 +42,8 @@ import { useSelector } from 'react-redux'
 import { UpdateProduct } from './components/admin/UpdateProduct';
 import { OrdersListAdmin } from './components/admin/OrdersListAdmin';
 import { ProcessOrder } from './components/admin/ProcessOrder';
+import { UserListAdmin } from './components/admin/UserListAdmin';
+import { UpdateUserByAdmin } from './components/admin/UpdateUserByAdmin';
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState('');
   const { loading, error, user } = useSelector(state => state.userReducer)
@@ -91,6 +93,7 @@ function App() {
             <Route exact path='/order/:id' component={OrderDetails} />
 
 
+
             <ProtectedRoute exact path='/confirm' component={ConfirmOrder} />
             {
 
@@ -111,7 +114,8 @@ function App() {
           <ProtectedRoute exact path='/admin/product/:id' isAdmin={true} component={UpdateProduct} />
           <ProtectedRoute exact path='/admin/orders' isAdmin={true} component={OrdersListAdmin} />
           <ProtectedRoute exact path='/admin/orders/:id' isAdmin={true} component={ProcessOrder} />
-
+          <ProtectedRoute exact path='/admin/users' isAdmin={true} component={UserListAdmin} />
+          <Route exact path='/admin/user/:id' component={UpdateUserByAdmin} />
 
           {
             !loading && user && user.role !== 'admin' && (

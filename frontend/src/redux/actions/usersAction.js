@@ -23,7 +23,19 @@ import {
     forgot_password_fail,
     reset_password_request,
     reset_password_success,
-    reset_password_fail
+    reset_password_fail,
+    all_users_request,
+    all_users_success,
+    all_users_fail,
+
+    user_details_request,
+    user_details_success,
+    user_details_fail,
+
+    update_user_request,
+    update_user_success,
+    update_user_reset,
+    update_user_fail,
 } from '../constants/userConstant'
 
 export const loginAction = (email, password) => async (dispatch) => {
@@ -204,6 +216,75 @@ export const logoutUserAction = () => async (dispatch) => {
 
     }
 }
+
+//-----------------------
+
+// Get all users
+export const getAllUsersAdminAction = () => async (dispatch) => {
+    try {
+
+        dispatch({ type: all_users_request })
+
+        const { data } = await axios.get('/api/v1/admin/users')
+
+        dispatch({
+            type: all_users_success,
+            payload: data.users
+        })
+
+    } catch (error) {
+        dispatch({
+            type: all_users_fail,
+            payload: error.response.data.message
+        })
+    }
+}
+
+export const updateUserAdminAction = (userData, id) => async (dispatch) => {
+    try {
+        dispatch({
+            type: update_user_request,
+        })
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        const { data } = await axios.put(`/api/v1/admin/users/${id}`, userData, config)
+        dispatch({
+            type: update_user_success,
+            payload: data.success
+
+        })
+    } catch (err) {
+        dispatch({
+            type: update_user_fail,
+            payload: err.response.data.message
+        })
+
+
+    }
+}
+export const getUserDetailsAdminAction = (id) => async (dispatch) => {
+    try {
+        dispatch({
+            type: user_details_request,
+        })
+
+        const { data } = await axios.get(`/api/v1/admin/users/${id}`);
+        dispatch({
+            type: user_details_success,
+            payload: data.user
+        })
+    } catch (err) {
+        dispatch({
+            type: user_details_fail,
+            payload: err.response.data.message
+        })
+
+    }
+}
+
 
 export const clearErrors = () => async (dispatch) => {
     dispatch({

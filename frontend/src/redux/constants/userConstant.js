@@ -21,6 +21,18 @@ export const update_profile_success = 'UPDATE_PROFILE_SUCCESS'
 export const update_profile_reset = 'UPDATE_PROFILE_RESET'
 export const update_profile_fail = 'UPDATE_PROFILE_FAIL'
 
+export const all_users_request = 'ALL_USERS_REQUEST'
+export const all_users_success = 'ALL_USERS_SUCCESS'
+export const all_users_fail = 'ALL_USERS_FAIL'
+
+export const user_details_request = 'USER_DETAILS_REQUEST'
+export const user_details_success = 'USER_DETAILS_SUCCESS'
+export const user_details_fail = 'USER_DETAILS_FAIL'
+
+export const update_user_request = 'UPDATE_USER_REQUEST'
+export const update_user_success = 'UPDATE_USER_SUCCESS'
+export const update_user_reset = 'UPDATE_USER_RESET'
+export const update_user_fail = 'UPDATE_USER_FAIL'
 
 
 export const update_password_request = 'UPDATE_PASSWORD_REQUEST'

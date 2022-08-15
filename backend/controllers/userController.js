@@ -136,13 +136,12 @@ const updateUserProfile = catchAsyncErrors(async (req, res, next) => {
 // get all users => /api/v1/admin/users
 
 const getAllUsers = catchAsyncErrors(async (req, res, next) => {
-    const { email } = req.query;
-    const perPage = 3;
-    const userCount = await User.countDocuments();
-    const emailKeySearch = defineEmailSearch(email);
-    const { currentPage, skip } = pagination(req.query, perPage);
+
+
+
     try {
-        const users = await User.find({ ...emailKeySearch }).limit(perPage).skip(skip);
+        const userCount = await User.countDocuments();
+        const users = await User.find();
         res.status(200).json({
             success: true,
             userCount: userCount,

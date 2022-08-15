@@ -5,7 +5,7 @@ import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { productReducer, newProductReducer, HandleProductReducer } from './reducers/productReducers'
 import { productDetailsReducer, newReviewReducer } from './reducers/productDetailsReducer'
-import { userReducer, userManagementReducer, forgotPasswordReducer } from './reducers/userReducers'
+import { userReducer, userManagementReducer, forgotPasswordReducer, allUsersAdminReducer, userDetailsAdminReducer } from './reducers/userReducers'
 import { cartReducer } from './reducers/cartReducer'
 import { newOrderReducer, myOrderReducer, allOrderReducer, orderAdminReducer } from './reducers/orderReducer'
 import { orderDetailsReducer } from './reducers/OrderDetailsReducer'
@@ -32,6 +32,8 @@ const reducer = combineReducers({
     HandleProductReducer: HandleProductReducer,
     allOrderReducer: allOrderReducer,
     orderAdminReducer: orderAdminReducer,
+    allUsersAdminReducer: allUsersAdminReducer,
+    userDetailsAdminReducer: userDetailsAdminReducer,
 })
 
 export const store = createStore(reducer, initialState, composeWithDevTools(applyMiddleware(thunk)))
