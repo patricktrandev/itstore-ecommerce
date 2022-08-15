@@ -27,15 +27,15 @@ import {
     all_users_request,
     all_users_success,
     all_users_fail,
-
     user_details_request,
     user_details_success,
     user_details_fail,
-
     update_user_request,
     update_user_success,
-    update_user_reset,
     update_user_fail,
+    delete_user_request,
+    delete_user_success,
+    delete_user_fail,
 } from '../constants/userConstant'
 
 export const loginAction = (email, password) => async (dispatch) => {
@@ -281,6 +281,28 @@ export const getUserDetailsAdminAction = (id) => async (dispatch) => {
             type: user_details_fail,
             payload: err.response.data.message
         })
+
+    }
+}
+
+
+export const deleteUserAdminAction = (id) => async (dispatch) => {
+    try {
+        dispatch({
+            type: delete_user_request,
+        })
+        const { data } = await axios.delete(`/api/v1/admin/users/${id}`)
+        dispatch({
+            type: delete_user_success,
+            payload: data.success
+
+        })
+    } catch (err) {
+        dispatch({
+            type: delete_user_fail,
+            payload: err.response.data.message
+        })
+
 
     }
 }

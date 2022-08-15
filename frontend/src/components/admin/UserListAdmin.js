@@ -3,20 +3,22 @@ import { Link } from 'react-router-dom'
 import { MDBDataTable } from 'mdbreact'
 
 import { MetaData } from '../layout/MetaData'
-
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAllUsersAdminAction, clearErrors } from '../../redux/actions/usersAction'
-import { StyledTag } from '../layout/TagStyled';
+import { getAllUsersAdminAction, clearErrors, deleteUserAdminAction } from '../../redux/actions/usersAction'
 import { Loader } from '../layout/Loader'
 import { Title } from '../layout/TagTitle'
 import { Sidebar } from './Sidebar'
-export const UserListAdmin = () => {
+import { delete_user_reset } from '../../redux/constants/userConstant'
+export const UserListAdmin = ({ history }) => {
 
     const alert = useAlert();
     const dispatch = useDispatch();
     const { loading, error, users } = useSelector(state => state.allUsersAdminReducer)
+    const { loading: deleteLoading, error: deleteError, isDeleted } = useSelector(state => state.userManagementReducer)
 
     const renderUserTable = () => {
         const data = {
@@ -67,7 +69,7 @@ export const UserListAdmin = () => {
                         <Link to={`/admin/user/${user._id}`} className="mx-2 btn btn-primary py-1 px-2">
                             <i className="fa fa-pencil"></i>
                         </Link>
-                        <button className="mx-2 btn btn-danger py-1 px-2" ><i className="fa fa-trash-alt"></i></button>
+                        <button className="mx-2 btn btn-danger py-1 px-2" onClick={() => deleteUserHandler(user._id)} disabled={deleteLoading ? true : false} ><i className="fa fa-trash-alt"></i></button>
 
                     </Fragment>
             })
@@ -75,29 +77,29 @@ export const UserListAdmin = () => {
         return data;
     }
 
-    // const submitDelete = (id) => {
-    //     console.log("id", id)
-    //     dispatch(deleteOrderAction(id));
-    // }
+    const submitDelete = (id) => {
+        console.log("id", id)
+        dispatch(deleteUserAdminAction(id));
+    }
 
-    // const deleteProductHandler = (id) => {
-    //     confirmAlert({
-    //         title: 'Confirm to delete',
-    //         message: 'Are you sure to delete this.',
-    //         buttons: [
-    //             {
-    //                 label: 'Yes',
-    //                 onClick: () => submitDelete(id)
-    //             },
-    //             {
-    //                 label: 'No',
-    //                 //onClick: () => alert('Click No')
-    //             }
-    //         ]
-    //     });
+    const deleteUserHandler = (id) => {
+        confirmAlert({
+            title: 'Confirm to delete',
+            message: 'Are you sure to delete this.',
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => submitDelete(id)
+                },
+                {
+                    label: 'No',
+                    //onClick: () => alert('Click No')
+                }
+            ]
+        });
 
 
-    // }
+    }
 
     useEffect(() => {
         dispatch(getAllUsersAdminAction())
@@ -105,7 +107,18 @@ export const UserListAdmin = () => {
             alert.error(error)
             dispatch(clearErrors())
         }
-    }, [dispatch, alert, error])
+        if (deleteError) {
+            alert.error(deleteError)
+            dispatch(clearErrors())
+        }
+        if (isDeleted) {
+            alert.success('Delete user successfully!')
+            history.push('/admin/users')
+            dispatch({
+                type: delete_user_reset
+            })
+        }
+    }, [dispatch, alert, error, deleteError, isDeleted, history])
 
 
     return (

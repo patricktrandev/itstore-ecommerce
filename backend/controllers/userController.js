@@ -205,28 +205,38 @@ const updateUser = catchAsyncErrors(async (req, res, next) => {
 //deleteUser
 const deleteUserByAdmin = catchAsyncErrors(async (req, res, next) => {
     try {
-        const user = await User.findById(req.params.id);
+        const { id } = req.params;
+        const user = await User.findById(id);
 
         if (!user) {
             return next(res.status(400).json({
-                isSuccess: false,
+                success: false,
                 error: `User does not found with id: ${req.params.id}`
             }))
         }
 
-        // Remove avatar from cloudinary
-        // const image_id = user.avatar.public_id;
-        // await cloudinary.v2.uploader.destroy(image_id);
+        //Remove avatar from cloudinary
+        const image_id = user.avatar.public_id;
 
-        await user.remove();
+        await cloudinary.v2.uploader.destroy(image_id);
 
-        res.status(200).json({
-            success: true,
-        })
+        const resDeleted = await User.deleteOne({ _id: user._id });
+
+        if (resDeleted.deletedCount === 1) {
+            res.status(200).json({
+                success: true,
+            })
+        } else {
+            res.status(500).json({
+                success: false,
+                error: 'Error server'
+            })
+        }
+
     } catch (err) {
         console.log(err);
         res.status(500).json({
-            isSuccess: false,
+            success: false,
             message: err.message,
             code: err.code || 500
         })

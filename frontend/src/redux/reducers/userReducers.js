@@ -24,6 +24,11 @@ import {
     user_details_success,
     user_details_fail,
 
+    delete_user_request,
+    delete_user_success,
+    delete_user_reset,
+    delete_user_fail,
+
     update_password_request,
     update_password_success,
     update_password_reset,
@@ -113,6 +118,7 @@ export const userManagementReducer = (state = {}, action) => {
     switch (action.type) {
         case update_profile_request:
         case update_user_request:
+        case delete_user_request:
         case update_password_request: {
             return {
                 ...state,
@@ -130,6 +136,14 @@ export const userManagementReducer = (state = {}, action) => {
                 isUpdated: action.payload
             }
         }
+
+        case delete_user_success: {
+            return {
+                ...state,
+                loading: false,
+                isDeleted: action.payload
+            }
+        }
         case update_profile_reset:
         case update_user_reset:
         case update_password_reset: {
@@ -139,9 +153,18 @@ export const userManagementReducer = (state = {}, action) => {
             }
 
         }
+        case delete_user_reset: {
+            return {
+                ...state,
+                isDeleted: false
+            }
+
+        }
+
 
         case update_profile_fail:
         case update_user_fail:
+        case delete_user_fail:
         case update_password_fail: {
             return {
                 ...state,

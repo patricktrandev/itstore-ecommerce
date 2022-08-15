@@ -34,6 +34,11 @@ export const update_user_success = 'UPDATE_USER_SUCCESS'
 export const update_user_reset = 'UPDATE_USER_RESET'
 export const update_user_fail = 'UPDATE_USER_FAIL'
 
+export const delete_user_request = 'DELETE_USER_REQUEST'
+export const delete_user_success = 'DELETE_USER_SUCCESS'
+export const delete_user_reset = 'DELETE_USER_RESET'
+export const delete_user_fail = 'DELETE_USER_FAIL'
+
 
 export const update_password_request = 'UPDATE_PASSWORD_REQUEST'
 export const update_password_success = 'UPDATE_PASSWORD_SUCCESS'

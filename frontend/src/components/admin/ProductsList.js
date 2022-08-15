@@ -17,7 +17,7 @@ export const ProductsList = ({ history }) => {
     const alert = useAlert();
     const dispatch = useDispatch();
     const { loading, error, products } = useSelector(state => state.productReducer)
-    const { error: deleteError, isDeleted } = useSelector(state => state.HandleProductReducer)
+    const { error: deleteError, isDeleted, loading: deleteLoading } = useSelector(state => state.HandleProductReducer)
     const renderProductTable = () => {
         const data = {
             columns: [
@@ -60,7 +60,7 @@ export const ProductsList = ({ history }) => {
                         <Link to={`/admin/product/${product._id}`} className="mx-2 btn btn-primary py-1 px-2">
                             <i className="fa fa-pencil"></i>
                         </Link>
-                        <button className="mx-2 btn btn-danger py-1 px-2" onClick={() => deleteProductHandler(product._id)}><i className="fa fa-trash-alt"></i></button>
+                        <button className="mx-2 btn btn-danger py-1 px-2" disabled={deleteLoading ? true : false} onClick={() => deleteProductHandler(product._id)}><i className="fa fa-trash-alt"></i></button>
                         <Link to={`/products/${product._id}`} className="mx-2 btn btn-success py-1 px-2">
                             <i className="fa fa-eye"></i>
                         </Link>
