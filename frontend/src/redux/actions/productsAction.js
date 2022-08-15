@@ -30,7 +30,7 @@ import {
     delete_review_request,
     delete_review_success,
     delete_review_fail,
-    delete_review_reset,
+    
 } from '../constants/productConstants'
 
 export const getProductsAction = (keyword = '', currentPage = 1, price, category, rating) => async (dispatch) => {
@@ -239,7 +239,7 @@ export const deleteReviewAdminAction = (id, productId) => async (dispatch) => {
 
         dispatch({ type: delete_review_request })
 
-        const { data } = await axios.delete(`/api/v1/reviews?id=${id}&productId=${productId}`)
+        const { data } = await axios.delete(`/api/v1/reviews?productId=${productId}&id=${id}`)
 
         dispatch({
             type: delete_review_success,

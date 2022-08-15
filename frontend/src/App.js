@@ -45,9 +45,10 @@ import { ProcessOrder } from './components/admin/ProcessOrder';
 import { UserListAdmin } from './components/admin/UserListAdmin';
 import { UpdateUserByAdmin } from './components/admin/UpdateUserByAdmin';
 import { ProductReviews } from './components/admin/ProductReviews';
+import { CouponBanner } from './components/layout/CouponBanner';
 function App() {
   const [stripeApiKey, setStripeApiKey] = useState('');
-  const { loading, error, user } = useSelector(state => state.userReducer)
+  const { loading, error, isAuthenticated, user } = useSelector(state => state.userReducer)
   useEffect(() => {
     store.dispatch(loadUserAction())
     async function getStripeApiKey() {
@@ -63,6 +64,7 @@ function App() {
     <Fragment>
       <Router>
         <div className="App">
+          {/* <CouponBanner /> */}
           <Header />
 
           <div className='container'>
@@ -119,7 +121,7 @@ function App() {
           <ProtectedRoute exact path='/admin/user/:id' component={UpdateUserByAdmin} />
           <ProtectedRoute exact path='/admin/reviews' isAdmin={true} component={ProductReviews} />
           {
-            !loading && user && user.role !== 'admin' && (
+            !loading && (!isAuthenticated || user.role !== 'admin') && (
               <Footer />
             )
           }

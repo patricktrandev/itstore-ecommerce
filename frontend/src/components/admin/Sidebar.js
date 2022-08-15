@@ -34,9 +34,7 @@ export const Sidebar = () => {
                     <li>
                         <Link to="/admin/reviews"><i className="fa fa-star"></i> Reviews</Link>
                     </li>
-                    <li>
-                        <Link to="/admin/reviews"><i className="fa fa-gift"></i> Coupons</Link>
-                    </li>
+
 
                 </ul>
             </nav>
