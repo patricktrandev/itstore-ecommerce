@@ -12,7 +12,12 @@ import {
     update_order_request,
     update_order_success,
     update_order_fail,
-    update_order_reset
+    update_order_reset,
+
+    delete_order_request,
+    delete_order_success,
+    delete_order_fail,
+    delete_order_reset
 
 } from '../constants/orderConstant'
 
@@ -124,6 +129,7 @@ export const allOrderReducer = (state = { orders: [] }, action) => {
 
 export const orderAdminReducer = (state = {}, action) => {
     switch (action.type) {
+        case delete_order_request:
         case update_order_request: {
             return {
                 ...state,
@@ -137,6 +143,14 @@ export const orderAdminReducer = (state = {}, action) => {
                 isUpdated: action.payload
             }
         }
+        case delete_order_success: {
+            return {
+                ...state,
+                loading: false,
+                isDeleted: action.payload
+            }
+        }
+        case delete_order_fail:
         case update_order_fail: {
             return {
                 ...state,
@@ -146,7 +160,13 @@ export const orderAdminReducer = (state = {}, action) => {
         case update_order_reset: {
             return {
                 ...state,
-                isUpdated: false
+                isDeleted: false
+            }
+        }
+        case delete_order_reset: {
+            return {
+                ...state,
+                isDeleted: false
             }
         }
 

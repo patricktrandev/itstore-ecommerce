@@ -176,7 +176,7 @@ const deleteOrder = catchAsyncErrors(async (req, res, next) => {
 
         if (!order) {
             return next(res.status(404).json({
-                isSuccess: false,
+                success: false,
                 message: 'No Order found with this ID'
             }))
 
@@ -190,7 +190,7 @@ const deleteOrder = catchAsyncErrors(async (req, res, next) => {
     } catch (err) {
         console.log(err);
         return res.status(500).json({
-            isSuccess: false,
+            success: false,
             error: `${err.message} -- ${err._message}`,
             code: err.code || 500
         })

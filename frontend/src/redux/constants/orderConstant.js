@@ -20,4 +20,9 @@ export const update_order_success = 'UPDATE_ORDER_SUCCESS'
 export const update_order_fail = 'UPDATE_ORDER_FAIL'
 export const update_order_reset = 'UPDATE_ORDER_RESET'
 
+export const delete_order_request = 'DELETE_ORDER_REQUEST'
+export const delete_order_success = 'DELETE_ORDER_SUCCESS'
+export const delete_order_fail = 'DELETE_ORDER_FAIL'
+export const delete_order_reset = 'DELETE_ORDER_RESET'
+
 export const clear_errors = 'CLEAR_ERRORS'

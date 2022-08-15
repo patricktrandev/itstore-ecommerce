@@ -17,7 +17,9 @@ import {
     update_order_request,
     update_order_success,
     update_order_fail,
-    update_order_reset
+    delete_order_request,
+    delete_order_success,
+    delete_order_fail,
 } from '../constants/orderConstant'
 
 export const newOrderAction = (order) => async (dispatch) => {
@@ -133,6 +135,30 @@ export const updateOrderAdminAction = (orderData, id) => async (dispatch) => {
         })
     }
 }
+
+
+export const deleteOrderAction = (id) => async (dispatch) => {
+
+
+    try {
+        dispatch({
+            type: delete_order_request,
+        })
+
+        const { data } = await axios.delete(`/api/v1/admin/orders/${id}`)
+        dispatch({
+            type: delete_order_success,
+            payload: data.success
+        })
+
+    } catch (err) {
+        dispatch({
+            type: delete_order_fail,
+            payload: err.response.data.message
+        })
+    }
+}
+
 
 //clear Error
 export const clearErrors = () => async (dispatch) => {

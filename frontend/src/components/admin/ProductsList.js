@@ -9,7 +9,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAdminProductsAction, clearErrors, deleteProductAction } from '../../redux/actions/productsAction'
-import { StyledTag } from '../layout/TagStyled';
+
 import { Sidebar } from './Sidebar'
 import { delete_product_reset } from '../../redux/constants/productConstants'
 export const ProductsList = ({ history }) => {

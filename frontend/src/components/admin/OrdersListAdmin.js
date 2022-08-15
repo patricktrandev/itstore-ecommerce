@@ -9,14 +9,16 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
 import { StyledTag } from '../layout/TagStyled'
-import { getAllOrdersAdminAction, clearErrors } from '../../redux/actions/orderActions'
+import { getAllOrdersAdminAction, clearErrors, deleteOrderAction } from '../../redux/actions/orderActions'
 import { Sidebar } from './Sidebar'
-export const OrdersListAdmin = () => {
+import { delete_order_reset } from '../../redux/constants/orderConstant'
+export const OrdersListAdmin = ({ history }) => {
 
 
     const alert = useAlert();
     const dispatch = useDispatch();
     const { loading, error, orders } = useSelector(state => state.allOrderReducer)
+    const { loading: deleteLoading, error: deleteError, isDeleted } = useSelector(state => state.orderAdminReducer)
     //const { error: deleteError, isDeleted } = useSelector(state => state.HandleProductReducer)
     console.log("order --", orders)
     const renderOrderTable = () => {
@@ -73,7 +75,7 @@ export const OrdersListAdmin = () => {
                 created: String(order.createdAt).substring(0, 10),
                 actions:
                     <Fragment>
-                        <button className="mx-2 btn btn-danger py-1 px-2" ><i className="fa fa-trash-alt"></i></button>
+                        <button className="mx-2 btn btn-danger py-1 px-2" disabled={deleteLoading ? true : false} onClick={() => deleteProductHandler(order._id)} ><i className="fa fa-trash-alt"></i></button>
                         <Link to={`/admin/orders/${order._id}`} className="mx-2 btn btn-success py-1 px-2">
                             <i className="fa fa-eye"></i>
                         </Link>
@@ -84,29 +86,29 @@ export const OrdersListAdmin = () => {
         return data;
     }
 
-    // const submitDelete = (id) => {
-    //     console.log("id", id)
-    //     dispatch(deleteProductAction(id));
-    // }
+    const submitDelete = (id) => {
+        console.log("id", id)
+        dispatch(deleteOrderAction(id));
+    }
 
-    // const deleteProductHandler = (id) => {
-    //     confirmAlert({
-    //         title: 'Confirm to delete',
-    //         message: 'Are you sure to delete this.',
-    //         buttons: [
-    //             {
-    //                 label: 'Yes',
-    //                 onClick: () => submitDelete(id)
-    //             },
-    //             {
-    //                 label: 'No',
-    //                 //onClick: () => alert('Click No')
-    //             }
-    //         ]
-    //     });
+    const deleteProductHandler = (id) => {
+        confirmAlert({
+            title: 'Confirm to delete',
+            message: 'Are you sure to delete this.',
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => submitDelete(id)
+                },
+                {
+                    label: 'No',
+                    //onClick: () => alert('Click No')
+                }
+            ]
+        });
 
 
-    // }
+    }
 
     useEffect(() => {
         dispatch(getAllOrdersAdminAction())
@@ -115,18 +117,18 @@ export const OrdersListAdmin = () => {
             alert.error(error)
             dispatch(clearErrors())
         }
-        // if (deleteError) {
-        //     alert.error(deleteError)
-        //     dispatch(clearErrors())
-        // }
-        // if (isDeleted) {
-        //     alert.success('Product deleted successfully!')
-        //     history.push('/admin/products')
-        //     dispatch({
-        //         type: delete_product_reset
-        //     })
-        // }
-    }, [dispatch, alert, error])
+        if (deleteError) {
+            alert.error(deleteError)
+            dispatch(clearErrors())
+        }
+        if (isDeleted) {
+            alert.success('Product deleted successfully!')
+            history.push('/admin/orders')
+            dispatch({
+                type: delete_order_reset
+            })
+        }
+    }, [dispatch, alert, error, deleteError, history, isDeleted])
 
     return (
         <Fragment>
